@@ -1,6 +1,7 @@
 # BitDesing
 
 ## Indice
+- Stack del proyecto
 
 ### Stack del proyecto
 | Capa        | Tecnología                                       |
