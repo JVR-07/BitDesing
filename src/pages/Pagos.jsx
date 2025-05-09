@@ -1,7 +1,10 @@
 import React from 'react';
 import { useAuth } from '../context/AuthContext';
+import './Pagos.css';
 
 const Pagos = () => {
+  const { user } = useAuth();
+  
   // Datos de ejemplo - En producción, estos vendrían de tu backend
   const developersToPay = [
     {
@@ -36,46 +39,50 @@ const Pagos = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8">Pagos Pendientes</h1>
+    <div className="pagos-container">
+      <div className="pagos-header">
+        <h1>Pagos Pendientes</h1>
+      </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="pagos-content">
         {developersToPay.map((dev) => (
-          <div key={dev.id} className="bg-white rounded-lg shadow-lg p-6">
-            <div className="flex justify-between items-start mb-4">
+          <div key={dev.id} className="pago-card">
+            <div className="pago-header">
               <div>
-                <h2 className="text-xl font-semibold">{dev.name}</h2>
-                <p className="text-gray-600">{dev.project}</p>
+                <h2 className="pago-title">{dev.name}</h2>
+                <p className="pago-project">{dev.project}</p>
               </div>
-              <span className="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm">
-                Pendiente
+              <span className={`pago-status status-${dev.status}`}>
+                {dev.status === 'pending' ? 'Pendiente' : 'Completado'}
               </span>
             </div>
             
-            <div className="space-y-3 mb-6">
-              <div className="flex justify-between">
-                <span className="text-gray-600">Monto a pagar:</span>
-                <span className="font-semibold">${dev.amount.toLocaleString()}</span>
+            <div className="pago-details">
+              <div className="pago-detail">
+                <span className="pago-label">Monto a pagar:</span>
+                <span className="pago-value">{dev.amount} SOL</span>
               </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Fecha límite:</span>
-                <span className="font-semibold">{new Date(dev.dueDate).toLocaleDateString()}</span>
+              <div className="pago-detail">
+                <span className="pago-label">Fecha límite:</span>
+                <span className="pago-value">{new Date(dev.dueDate).toLocaleDateString()}</span>
               </div>
             </div>
 
-            <button
-              onClick={() => handlePayment(dev.id)}
-              className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              Realizar Pago
-            </button>
+            <div className="pago-actions">
+              <button
+                onClick={() => handlePayment(dev.id)}
+                className="pago-btn pago-btn-primary"
+              >
+                Realizar Pago
+              </button>
+            </div>
           </div>
         ))}
       </div>
 
       {developersToPay.length === 0 && (
-        <div className="text-center py-12">
-          <p className="text-gray-600 text-lg">No hay pagos pendientes en este momento.</p>
+        <div className="pagos-empty">
+          <p>No hay pagos pendientes en este momento.</p>
         </div>
       )}
     </div>
