@@ -260,7 +260,7 @@ const Ganancia = () => {
         <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
           <h2 className="text-xl font-semibold mb-4">Información de la Wallet</h2>
           <p className="text-sm text-gray-600 mb-2">Dirección: {walletInfo.address}</p>
-          <p className="text-lg font-semibold">Balance actual: {walletInfo.balance.toFixed(4)} SOL</p>
+          <p className="text-lg font-semibold">Balance actual: {walletInfo?.balance?.toFixed(4) || '0.0000'} SOL</p>
         </div>
       )}
 
@@ -281,8 +281,8 @@ const Ganancia = () => {
         <div className="grid grid-cols-2 gap-4">
           <div>
             <p className="text-lg text-gray-600">Balance Total</p>
-            <p className={`text-3xl font-bold ${walletInfo.balance >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-              {walletInfo.balance.toFixed(4)} SOL
+            <p className={`text-3xl font-bold ${walletInfo?.balance >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+              {walletInfo?.balance?.toFixed(4) || '0.0000'} SOL
             </p>
           </div>
           <div>
