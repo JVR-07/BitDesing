@@ -1,0 +1,38 @@
+{
+  "projects": [
+    {
+      "id": 1,
+      "title": "Desarrollo de E-commerce",
+      "description": "Plataforma de comercio electrónico con integración de pagos y gestión de inventario.",
+      "budget": "$5,000 - $10,000",
+      "duration": "3 meses",
+      "skills": ["React", "Node.js", "MongoDB"],
+      "status": "Abierto",
+      "clientId": 1,
+      "clientName": "Juan Pérez",
+      "applications": [
+        {
+          "developerId": 2,
+          "developerName": "Ana García",
+          "status": "Pendiente",
+          "message": "Me interesa participar en este proyecto. Tengo experiencia en e-commerce."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Aplicación de Gestión de Tareas",
+      "description": "Sistema de gestión de tareas con notificaciones en tiempo real y colaboración en equipo.",
+      "budget": "$3,000 - $5,000",
+      "duration": "2 meses",
+      "skills": ["Vue.js", "Firebase", "Tailwind CSS"],
+      "status": "En Progreso",
+      "clientId": 1,
+      "clientName": "Juan Pérez",
+      "assignedDeveloper": {
+        "id": 3,
+        "name": "Carlos Rodríguez"
+      }
+    }
+  ]
+} 
