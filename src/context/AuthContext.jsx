@@ -44,27 +44,187 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const login = (username, password) => {
+  const login = async (walletAddress, signature) => {
     try {
-      if (!username || !password) {
-        throw new Error('Por favor, completa todos los campos');
+      // Obtener el nickname de la wallet
+      let walletNickname = '';
+      try {
+        const resp = await window.solana.connect();
+        // Intentar obtener el nombre de la wallet
+        const walletName = await window.solana.getWalletName?.();
+        if (walletName) {
+          walletNickname = walletName;
+        } else {
+          // Si no se puede obtener el nombre, usar las primeras letras de la publicKey
+          walletNickname = resp.publicKey.toString().slice(0, 6);
+        }
+      } catch (error) {
+        console.error('Error al obtener el nombre de la wallet:', error);
+        walletNickname = walletAddress.slice(0, 6);
       }
 
-      const user = usersData.users.find(
-        u => u.username === username && u.password === password
-      );
-
-      if (!user) {
-        throw new Error('Credenciales incorrectas');
+      // Verificar si el usuario ya existe
+      const existingUser = usersData.users.find(user => user.walletAddress === walletAddress);
+      
+      if (existingUser) {
+        // Si el usuario existe, usar sus datos
+        setUser(existingUser);
+        localStorage.setItem('user', JSON.stringify(existingUser));
+        return { success: true };
       }
 
+      // Si es un nuevo usuario, mostrar el modal de selección de rol
+      const role = await new Promise((resolve) => {
+        const modal = document.createElement('div');
+        modal.className = 'role-selection-modal';
+        modal.innerHTML = `
+          <div class="modal-content">
+            <h2>Selecciona tu rol</h2>
+            <p>¿Cómo te gustaría usar la plataforma?</p>
+            <div class="form-group">
+              <label for="username">Nombre de Usuario</label>
+              <input 
+                type="text" 
+                id="username" 
+                class="username-input" 
+                value="${walletNickname}"
+                placeholder="Ingresa tu nombre de usuario"
+              />
+            </div>
+            <select id="role-select" class="role-select">
+              <option value="">Selecciona un rol</option>
+              <option value="client">Cliente</option>
+              <option value="developer">Desarrollador</option>
+            </select>
+            <button id="confirm-role" class="confirm-btn" disabled>Confirmar</button>
+          </div>
+        `;
+
+        document.body.appendChild(modal);
+
+        // Agregar estilos al modal
+        const style = document.createElement('style');
+        style.textContent = `
+          .role-selection-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+          }
+          .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            min-width: 300px;
+          }
+          .form-group {
+            margin-bottom: 1rem;
+            text-align: left;
+          }
+          .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+          }
+          .username-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+          }
+          .username-input:focus {
+            outline: none;
+            border-color: #512da8;
+          }
+          .role-select {
+            width: 100%;
+            padding: 0.75rem;
+            margin: 1rem 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+          }
+          .role-select:focus {
+            outline: none;
+            border-color: #512da8;
+          }
+          .confirm-btn {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #512da8;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+          }
+          .confirm-btn:disabled {
+            background-color: #9e9e9e;
+            cursor: not-allowed;
+          }
+          .confirm-btn:not(:disabled):hover {
+            background-color: #311b92;
+          }
+        `;
+        document.head.appendChild(style);
+
+        const roleSelect = modal.querySelector('#role-select');
+        const confirmBtn = modal.querySelector('#confirm-role');
+        const usernameInput = modal.querySelector('#username');
+
+        // Habilitar el botón cuando se seleccione un rol y haya un nombre de usuario
+        const validateForm = () => {
+          confirmBtn.disabled = !roleSelect.value || !usernameInput.value.trim();
+        };
+
+        roleSelect.addEventListener('change', validateForm);
+        usernameInput.addEventListener('input', validateForm);
+
+        // Manejar la confirmación del rol
+        confirmBtn.addEventListener('click', () => {
+          if (roleSelect.value && usernameInput.value.trim()) {
+            document.body.removeChild(modal);
+            resolve({
+              role: roleSelect.value,
+              username: usernameInput.value.trim()
+            });
+          }
+        });
+      });
+
+      // Crear el nuevo usuario con el rol seleccionado
       const userData = {
-        id: user.id,
-        username: user.username,
-        name: user.name,
-        role: user.role,
-        email: user.email
+        id: walletAddress,
+        username: role.username,
+        name: role.username,
+        role: role.role,
+        email: `${role.username}@example.com`,
+        walletAddress: walletAddress,
+        signature: signature,
+        // Agregar campos específicos según el rol
+        ...(role.role === 'developer' && {
+          skills: [],
+          experience: '0 años',
+          rating: 0,
+          completedProjects: 0,
+          hourlyRate: '$0',
+          availability: 'Disponible'
+        })
       };
+
+      // Agregar el nuevo usuario a la base de datos
+      usersData.users.push(userData);
+
       setUser(userData);
       localStorage.setItem('user', JSON.stringify(userData));
       return { success: true };

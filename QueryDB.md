@@ -3,6 +3,7 @@
 CREATE TABLE Users
 (
 	user_id SERIAL PRIMARY KEY,
+	user_name VARCHAR (100) NOT NULL,
 	wallet_adress VARCHAR(42) UNIQUE NOT NULL,
 	rol VARCHAR(20) CHECK (rol IN ('client','developer')) NOT NULL,
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP

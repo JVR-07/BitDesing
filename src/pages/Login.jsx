@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import './Login.css';
 
@@ -10,35 +10,59 @@ const Login = () => {
     username: '',
     password: ''
   });
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prevState => ({
-      ...prevState,
-      [name]: value
-    }));
-    // Limpiar el error cuando el usuario comienza a escribir
-    if (error) setError('');
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
   };
 
-  const handleSubmit = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
     setError('');
-    setIsLoading(true);
 
     try {
       const result = await login(formData.username, formData.password);
       if (result.success) {
         navigate('/');
       } else {
-        setError(result.error);
+        setError(result.error || 'Error al iniciar sesión');
       }
-    } catch (err) {
-      setError('Error al iniciar sesión. Por favor, intenta de nuevo.');
+    } catch (error) {
+      setError(error.message || 'Error al iniciar sesión');
     } finally {
-      setIsLoading(false);
+      setLoading(false);
+    }
+  };
+
+  const handlePhantomLogin = async () => {
+    setLoading(true);
+    setError('');
+
+    try {
+      if (!window.solana || !window.solana.isPhantom) {
+        throw new Error('Phantom Wallet no está instalada');
+      }
+
+      const resp = await window.solana.connect();
+      const message = "Por favor, firma este mensaje para verificar tu identidad";
+      const encodedMessage = new TextEncoder().encode(message);
+      const signedMessage = await window.solana.signMessage(encodedMessage, "utf8");
+      
+      const result = await login(resp.publicKey.toString(), signedMessage.signature);
+      if (result.success) {
+        navigate('/');
+      } else {
+        setError(result.error || 'Error al iniciar sesión con Phantom');
+      }
+    } catch (error) {
+      setError(error.message || 'Error al conectar con Phantom Wallet');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -46,57 +70,18 @@ const Login = () => {
     <div className="login-container">
       <div className="login-content">
         <h1>Iniciar Sesión</h1>
-        <p className="login-description">
-          Accede a tu cuenta para gestionar tus proyectos o encontrar trabajo.
-        </p>
-
-        {error && (
-          <div className="error-message">
-            <i className="error-icon">⚠️</i>
-            {error}
-          </div>
-        )}
-
-        <form onSubmit={handleSubmit} className="login-form">
-          <div className="form-group">
-            <label htmlFor="username">Nombre de Usuario</label>
-            <input
-              type="text"
-              id="username"
-              name="username"
-              value={formData.username}
-              onChange={handleChange}
-              required
-              placeholder="Ingresa tu nombre de usuario"
-              disabled={isLoading}
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="password">Contraseña</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-              placeholder="Ingresa tu contraseña"
-              disabled={isLoading}
-            />
-          </div>
-
-          <button 
-            type="submit" 
-            className={`submit-button ${isLoading ? 'loading' : ''}`}
-            disabled={isLoading}
-          >
-            {isLoading ? 'Iniciando sesión...' : 'Iniciar Sesión'}
-          </button>
-        </form>
-
+        {error && <div className="error-message">{error}</div>}
+        
+        <div className="divider"></div>
+        <button 
+          onClick={handlePhantomLogin} 
+          className="phantom-login-btn"
+          disabled={loading}
+        >
+          {loading ? 'Conectando...' : 'Iniciar Sesión con Phantom'}
+        </button>
         <p className="register-link">
-          ¿No tienes una cuenta? <a href="/register">Regístrate</a>
+          ¿No tienes una cuenta? <Link to="https://phantom.com/">Regístrate aquí</Link>
         </p>
       </div>
     </div>

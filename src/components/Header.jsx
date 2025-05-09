@@ -7,6 +7,7 @@ const Header = () => {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showWalletTooltip, setShowWalletTooltip] = useState(false);
 
   const handleLogout = () => {
     logout();
@@ -15,6 +16,11 @@ const Header = () => {
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const formatWalletAddress = (address) => {
+    if (!address) return '';
+    return `${address.slice(0, 4)}...${address.slice(-4)}`;
   };
 
   return (
@@ -38,7 +44,23 @@ const Header = () => {
         <div className="auth-section">
           {user ? (
             <div className="user-menu">
-              <span className="user-name">Hola, {user.name}</span>
+              <div className="user-info">
+                <span className="user-name">Hola, {user.name}</span>
+                {user.walletAddress && (
+                  <span 
+                    className="wallet-address"
+                    onMouseEnter={() => setShowWalletTooltip(true)}
+                    onMouseLeave={() => setShowWalletTooltip(false)}
+                  >
+                    {formatWalletAddress(user.walletAddress)}
+                    {showWalletTooltip && (
+                      <div className="wallet-tooltip">
+                        {user.walletAddress}
+                      </div>
+                    )}
+                  </span>
+                )}
+              </div>
               {user.role === 'developer' && user.availability && (
                 <span className={`availability-badge ${user.availability.toLowerCase()}`}>
                   {user.availability}
