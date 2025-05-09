@@ -1,0 +1,272 @@
+:root {
+  --color-bg-header: #1a1a1a;
+  --color-primary: #e6f4ea;
+  --color-accent: #0056b3;
+  --color-text: #ffffff;
+  --color-button-hover: #ffffff;
+}
+
+.header {
+  background-color: var(--color-bg-header);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: 80px;
+  width: 100%;
+  transition: transform 0.3s ease-in-out;
+}
+
+.header.hidden {
+  transform: translateY(-100%);
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.5rem; /* Aumento el tamaño para mejor visibilidad */
+  font-weight: 700;
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color 0.3s ease;
+  margin-right: 2rem; /* Añadimos margen para que no esté tan cerca de los botones */
+}
+
+.logo:hover {
+  color: var(--color-button-hover);
+}
+
+.nav {
+  display: flex;
+  gap: 2rem; /* Aumentamos el espacio entre los elementos de navegación */
+  align-items: center;
+}
+
+.nav-link {
+  color: var(--color-text);
+  font-size: 1rem; /* Aumento el tamaño de la fuente */
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: var(--color-primary);
+}
+
+.auth-section {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-left: 4rem; /* Aumentado de 2rem a 4rem para moverlo más a la derecha */
+}
+
+.user-menu {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* Añadimos más espacio entre el nombre de usuario y el badge */
+}
+
+.user-name {
+  font-weight: 500;
+  color: var(--color-text);
+  font-size: 1rem; /* Aumento el tamaño de la fuente */
+}
+
+.availability-badge {
+  padding: 0.25rem 0.6rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.availability-badge.disponible {
+  background-color: #2e8b5733;
+  color: #7cfc00;
+}
+
+.availability-badge.ocupado {
+  background-color: #ff4d4d33;
+  color: #ff4d4d;
+}
+
+.logout-btn {
+  background-color: transparent;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  padding: 0.6rem 1rem; /* Aumento el padding para mayor comodidad */
+  border-radius: 6px;
+  font-size: 0.95rem; /* Aumento el tamaño del texto */
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-left: 2rem; /* Separación más grande hacia la derecha */
+}
+
+.logout-btn:hover {
+  background-color: var(--color-primary);
+  color: var(--color-bg-header);
+}
+
+.auth-buttons {
+  display: flex;
+  gap: 2rem;
+  margin-left: 2rem; /* Añadido margen izquierdo para separarlo más */
+}
+
+.login-btn {
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  padding: 0.6rem 1.1rem;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  margin-left: 2rem; /* Añadido margen izquierdo adicional */
+}
+
+.login-btn:hover {
+  background-color: var(--color-primary);
+  color: var(--color-bg-header);
+}
+
+.register-btn {
+  background-color: var(--color-primary);
+  color: var(--color-bg-header);
+  border: 1px solid var(--color-primary);
+}
+
+.register-btn:hover {
+  background-color: var(--color-button-hover);
+  color: var(--color-bg-header);
+  border-color: var(--color-button-hover);
+}
+
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--color-text);
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .header-content {
+    padding: 0.75rem 1rem;
+  }
+
+  .mobile-menu-btn {
+    display: block;
+  }
+
+  .nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: var(--color-bg-header);
+    padding: 1rem;
+    flex-direction: column;
+    gap: 1.5rem; /* Mayor separación entre los elementos */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  }
+
+  .nav.active {
+    display: flex;
+  }
+
+  .auth-section {
+    flex-direction: column;
+    gap: 1rem;
+    margin-left: 0; /* Eliminar margen en móviles */
+  }
+
+  .auth-buttons {
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+    align-items: center;
+    margin-left: 0; /* Eliminar margen en móviles */
+  }
+
+  .login-btn {
+    text-align: center;
+    width: 100%;
+    margin-left: 0; /* Eliminar margen en móviles */
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    font-size: 1.25rem; /* Ajuste para pantallas pequeñas */
+  }
+
+  .user-name {
+    font-size: 0.85rem; /* Ajuste para pantallas pequeñas */
+  }
+
+  .availability-badge {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.5rem;
+  }
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* Espaciado entre los elementos de la información del usuario */
+}
+
+.wallet-address {
+  font-size: 0.75rem;
+  color: #ccc;
+  background-color: #2a2a2a;
+  padding: 0.35rem 0.6rem; /* Ajuste en el padding */
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+  font-family: monospace;
+}
+
+.wallet-tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #444;
+  color: white;
+  padding: 0.6rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  white-space: nowrap;
+  z-index: 1000;
+  margin-bottom: 0.6rem;
+}
+
+.wallet-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: #444 transparent transparent transparent;
+}
+
+.main-content {
+  padding-top: 0;
+}

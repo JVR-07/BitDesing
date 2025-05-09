@@ -1,0 +1,138 @@
+:root {
+  --morado: #7c3aed;
+  --morado-claro: #a78bfa;
+  --verde: #10b981;
+  --naranja: #f97316;
+  --azul: #3b82f6;
+  --fondo-oscuro: #0f172a;
+  --texto: #e2e8f0;
+  --gris-input: #1e293b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--fondo-oscuro);
+  color: var(--texto);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 1rem;
+}
+
+/* Contenedor principal */
+.login-container {
+  width: 100%;
+  max-width: 420px;
+  background-color: var(--gris-input);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+}
+
+/* Encabezado */
+.login-content h1 {
+  font-size: 2rem;
+  color: var(--morado);
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+/* Separador decorativo */
+.divider {
+  height: 4px;
+  background: linear-gradient(to right, var(--morado), var(--verde));
+  border-radius: 4px;
+  margin: 1.5rem 0;
+}
+
+/* Botón de Phantom */
+.phantom-login-btn {
+  background: linear-gradient(135deg, var(--morado), var(--verde));
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+  width: 100%;
+}
+
+.phantom-login-btn:hover {
+  background: linear-gradient(135deg, var(--morado-claro), var(--verde));
+  box-shadow: 0 0 15px rgba(167, 139, 250, 0.8);
+}
+
+/* Mensaje de error */
+.error-message {
+  background-color: #7f1d1d;
+  padding: 1rem;
+  color: #fecaca;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* Enlace de registro */
+.register-link {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.95rem;
+}
+
+.register-link a {
+  color: var(--azul);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.register-link a:hover {
+  text-decoration: underline;
+}
+
+/* Botón en estado de carga */
+.phantom-login-btn:disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* ------------------ */
+/* Media Queries para Responsividad */
+/* ------------------ */
+
+/* Ajustes para pantallas pequeñas (teléfonos) */
+@media (max-width: 480px) {
+  .login-container {
+    padding: 1.5rem;
+  }
+
+  .login-content h1 {
+    font-size: 1.6rem;
+  }
+
+  .phantom-login-btn {
+    font-size: 0.95rem;
+    padding: 0.7rem 1rem;
+  }
+
+  .register-link {
+    font-size: 0.9rem;
+  }
+}
+
+/* Ajustes para pantallas medianas (tablets) */
+@media (max-width: 768px) {
+  body {
+    padding: 1.5rem;
+  }
+
+  .login-container {
+    padding: 2rem;
+  }
+}

@@ -1,0 +1,233 @@
+:root {
+  --morado: #7c3aed;
+  --morado-claro: #a78bfa;
+  --verde: #10b981;
+  --naranja: #f97316;
+  --azul: #3b82f6;
+  --fondo-oscuro: #0f172a;
+  --texto: #e2e8f0;
+  --gris-input: #1e293b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--fondo-oscuro);
+  color: var(--texto);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 1rem;
+}
+
+.contact-container {
+  width: 100%;
+  max-width: 1200px;
+  background-color: #1e293b;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  position: relative;
+  margin: 4rem auto 2rem auto;
+  padding: 0 1rem;
+}
+
+.contact-container::before {
+  content: '';
+  display: block;
+  height: 8px;
+  background: linear-gradient(to right, var(--morado), var(--verde));
+}
+
+.contact-content {
+  padding: 3rem 2rem;
+}
+
+.contact-content h1 {
+  font-size: 2rem;
+  color: var(--morado);
+  text-align: center;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+.contact-description {
+  text-align: center;
+  color: #94a3b8;
+  margin-bottom: 2rem;
+  font-size: 1rem;
+}
+
+.contact-info {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.info-item {
+  flex: 1 1 100%;
+  background: linear-gradient(135deg, var(--morado), var(--azul));
+  color: white;
+  padding: 1rem;
+  border-radius: 12px;
+  text-align: center;
+  font-weight: 500;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.info-item:nth-child(2) {
+  background: linear-gradient(135deg, var(--morado), var(--verde));
+}
+
+.info-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(167, 139, 250, 0.8);
+}
+
+.info-item h3 {
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.contact-form .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.contact-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--morado);
+  font-weight: 600;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: var(--gris-input);
+  border: 1px solid #334155;
+  border-radius: 8px;
+  color: white;
+  font-size: 1rem;
+  resize: vertical;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: var(--morado);
+  box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.4);
+}
+
+.submit-button {
+  background-color: var(--morado);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  width: 100%;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.submit-button:hover {
+  background-color: var(--verde);
+}
+
+.success-message {
+  background-color: #064e3b;
+  padding: 1rem;
+  color: #d1fae5;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.login-prompt {
+  text-align: center;
+  background-color: #1e293b;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid #334155;
+}
+
+.login-prompt p {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  color: #94a3b8;
+}
+
+.auth-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.login-button,
+.register-button {
+  background: linear-gradient(135deg, var(--morado), var(--azul));
+  color: white;
+  padding: 0.5rem 1.25rem;
+  border: none;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.3s ease, transform 0.3s ease;
+  text-align: center;
+  flex: 1 1 100px;
+}
+
+.register-button {
+  background: linear-gradient(135deg, var(--morado), var(--verde));
+}
+
+.login-button:hover,
+.register-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(167, 139, 250, 0.6);
+}
+
+/* Media Queries para adaptar a móviles */
+@media (min-width: 480px) {
+  .info-item {
+    flex: 1 1 calc(50% - 0.5rem);
+  }
+
+  .auth-buttons {
+    flex-wrap: nowrap;
+  }
+
+  .login-button,
+  .register-button {
+    flex: 0 1 auto;
+  }
+}
+
+@media (min-width: 768px) {
+  .contact-content h1 {
+    font-size: 2.5rem;
+  }
+
+  .contact-description {
+    font-size: 1.1rem;
+  }
+
+  .submit-button {
+    width: auto;
+  }
+}

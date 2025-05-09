@@ -1,0 +1,250 @@
+:root {
+  --black: #0a0a0a;
+  --blue: #1e90ff;
+  --purple: #6a0dad;
+  --white: #f0f0f0;
+  --gradient: linear-gradient(90deg, var(--purple), var(--blue));
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--black);
+  color: var(--white);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.projects-container {
+  width: 100%;
+  max-width: 1400px;
+  background-color: #1e293b;
+  border-radius: 16px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+  padding: 3rem 2rem;
+  margin: 4rem auto 2rem auto;
+}
+
+.projects-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.projects-header h1 {
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  padding: 0 1rem;
+}
+
+.create-project-btn,
+.submit-btn,
+.cancel-btn,
+.assign-btn {
+  padding: 0.8rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  background: var(--gradient);
+  color: var(--white);
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  font-size: 1rem;
+  width: 100%;
+  max-width: 200px;
+}
+
+.create-project-btn:hover,
+.submit-btn:hover,
+.cancel-btn:hover,
+.assign-btn:hover {
+  transform: scale(1.05);
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.modal-content {
+  background-color: #121212;
+  border-radius: 12px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0 0 20px rgba(106, 13, 173, 0.5);
+  color: var(--white);
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.8rem;
+  border-radius: 8px;
+  border: none;
+  background-color: #1e1e1e;
+  color: var(--white);
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #888;
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 1rem;
+}
+
+.project-card {
+  background-color: #1a1a1a;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 0 15px rgba(106, 13, 173, 0.3);
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.project-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.status-badge {
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  background-color: var(--blue);
+  color: var(--white);
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+.project-description {
+  margin: 1rem 0;
+  color: #ccc;
+}
+
+.project-details .detail {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.label {
+  font-weight: bold;
+  color: var(--blue);
+}
+
+.skill-tag {
+  display: inline-block;
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  background-color: #2a2a2a;
+  color: var(--white);
+  margin: 0.2rem;
+  font-size: 0.9rem;
+}
+
+.applications-section,
+.assigned-developer {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #333;
+}
+
+.application-card {
+  background-color: #2a2a2a;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.application-header {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+  gap: 0.5rem;
+}
+
+.developer-name {
+  font-weight: bold;
+  color: var(--purple);
+}
+
+.application-message {
+  color: #ccc;
+}
+
+/* Responsividad extra para pantallas muy pequeñas */
+@media (max-width: 480px) {
+  .projects-header h1 {
+    font-size: 2rem;
+  }
+
+  .modal-content {
+    padding: 1.5rem 1rem;
+  }
+
+  .form-actions {
+    justify-content: center;
+  }
+
+  .create-project-btn,
+  .submit-btn,
+  .cancel-btn,
+  .assign-btn {
+    width: 100%;
+    max-width: none;
+  }
+
+  .project-details .detail {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .project-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .status-badge {
+    font-size: 0.75rem;
+  }
+}
