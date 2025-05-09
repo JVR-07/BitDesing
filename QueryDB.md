@@ -45,3 +45,13 @@ CREATE TABLE project_logs (
 );
 
 ```
+
+```
+--Tabla de usuario
+CREATE TABLE USERS
+(
+	public_key VARCHAR(100) PRIMARY KEY NOT NULL,
+	rol VARCHAR(100) NOT NULL,
+	user_name VARCHAR(100) NOT NULL
+)
+```
