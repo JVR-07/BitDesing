@@ -82,9 +82,9 @@ const Contact = () => {
               </div>
             )}
 
-            <button type="submit" className="submit-button">
-              Enviar Mensaje
-            </button>
+            <div className="contact-actions">
+              <button type="submit" className="submit-button">Enviar Mensaje</button>
+            </div>
           </form>
         ) : (
           <div className="login-prompt">

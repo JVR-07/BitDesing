@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Header from './components/Header';
 import Home from './pages/Home';
 import Login from './pages/Login';
-import Register from './pages/Register';
 import Developers from './pages/Developers';
 import Projects from './pages/Projects';
 import Contact from './pages/Contact';
@@ -39,7 +38,6 @@ const AppRoutes = () => {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
       <Route path="/developers" element={<Developers />} />
       <Route path="/projects" element={<Projects />} />
       <Route path="/contact" element={<Contact />} />
