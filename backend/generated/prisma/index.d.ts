@@ -1245,19 +1245,17 @@ export namespace Prisma {
   export type Project_logsAvgAggregateOutputType = {
     project_log_id: number | null
     project_id: number | null
-    user_id: number | null
   }
 
   export type Project_logsSumAggregateOutputType = {
     project_log_id: number | null
     project_id: number | null
-    user_id: number | null
   }
 
   export type Project_logsMinAggregateOutputType = {
     project_log_id: number | null
     project_id: number | null
-    user_id: number | null
+    public_key: string | null
     action: string | null
     wallet_address: string | null
     timestamp: Date | null
@@ -1266,7 +1264,7 @@ export namespace Prisma {
   export type Project_logsMaxAggregateOutputType = {
     project_log_id: number | null
     project_id: number | null
-    user_id: number | null
+    public_key: string | null
     action: string | null
     wallet_address: string | null
     timestamp: Date | null
@@ -1275,7 +1273,7 @@ export namespace Prisma {
   export type Project_logsCountAggregateOutputType = {
     project_log_id: number
     project_id: number
-    user_id: number
+    public_key: number
     action: number
     wallet_address: number
     timestamp: number
@@ -1286,19 +1284,17 @@ export namespace Prisma {
   export type Project_logsAvgAggregateInputType = {
     project_log_id?: true
     project_id?: true
-    user_id?: true
   }
 
   export type Project_logsSumAggregateInputType = {
     project_log_id?: true
     project_id?: true
-    user_id?: true
   }
 
   export type Project_logsMinAggregateInputType = {
     project_log_id?: true
     project_id?: true
-    user_id?: true
+    public_key?: true
     action?: true
     wallet_address?: true
     timestamp?: true
@@ -1307,7 +1303,7 @@ export namespace Prisma {
   export type Project_logsMaxAggregateInputType = {
     project_log_id?: true
     project_id?: true
-    user_id?: true
+    public_key?: true
     action?: true
     wallet_address?: true
     timestamp?: true
@@ -1316,7 +1312,7 @@ export namespace Prisma {
   export type Project_logsCountAggregateInputType = {
     project_log_id?: true
     project_id?: true
-    user_id?: true
+    public_key?: true
     action?: true
     wallet_address?: true
     timestamp?: true
@@ -1412,7 +1408,7 @@ export namespace Prisma {
   export type Project_logsGroupByOutputType = {
     project_log_id: number
     project_id: number | null
-    user_id: number | null
+    public_key: string | null
     action: string
     wallet_address: string | null
     timestamp: Date | null
@@ -1440,7 +1436,7 @@ export namespace Prisma {
   export type project_logsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     project_log_id?: boolean
     project_id?: boolean
-    user_id?: boolean
+    public_key?: boolean
     action?: boolean
     wallet_address?: boolean
     timestamp?: boolean
@@ -1451,7 +1447,7 @@ export namespace Prisma {
   export type project_logsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     project_log_id?: boolean
     project_id?: boolean
-    user_id?: boolean
+    public_key?: boolean
     action?: boolean
     wallet_address?: boolean
     timestamp?: boolean
@@ -1462,7 +1458,7 @@ export namespace Prisma {
   export type project_logsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     project_log_id?: boolean
     project_id?: boolean
-    user_id?: boolean
+    public_key?: boolean
     action?: boolean
     wallet_address?: boolean
     timestamp?: boolean
@@ -1473,13 +1469,13 @@ export namespace Prisma {
   export type project_logsSelectScalar = {
     project_log_id?: boolean
     project_id?: boolean
-    user_id?: boolean
+    public_key?: boolean
     action?: boolean
     wallet_address?: boolean
     timestamp?: boolean
   }
 
-  export type project_logsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"project_log_id" | "project_id" | "user_id" | "action" | "wallet_address" | "timestamp", ExtArgs["result"]["project_logs"]>
+  export type project_logsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"project_log_id" | "project_id" | "public_key" | "action" | "wallet_address" | "timestamp", ExtArgs["result"]["project_logs"]>
   export type project_logsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     projects?: boolean | project_logs$projectsArgs<ExtArgs>
     users?: boolean | project_logs$usersArgs<ExtArgs>
@@ -1502,7 +1498,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       project_log_id: number
       project_id: number | null
-      user_id: number | null
+      public_key: string | null
       action: string
       wallet_address: string | null
       timestamp: Date | null
@@ -1933,7 +1929,7 @@ export namespace Prisma {
   interface project_logsFieldRefs {
     readonly project_log_id: FieldRef<"project_logs", 'Int'>
     readonly project_id: FieldRef<"project_logs", 'Int'>
-    readonly user_id: FieldRef<"project_logs", 'Int'>
+    readonly public_key: FieldRef<"project_logs", 'String'>
     readonly action: FieldRef<"project_logs", 'String'>
     readonly wallet_address: FieldRef<"project_logs", 'String'>
     readonly timestamp: FieldRef<"project_logs", 'DateTime'>
@@ -2404,15 +2400,11 @@ export namespace Prisma {
   export type ProjectsAvgAggregateOutputType = {
     project_id: number | null
     amount: Decimal | null
-    client_id: number | null
-    developer_id: number | null
   }
 
   export type ProjectsSumAggregateOutputType = {
     project_id: number | null
     amount: Decimal | null
-    client_id: number | null
-    developer_id: number | null
   }
 
   export type ProjectsMinAggregateOutputType = {
@@ -2421,8 +2413,8 @@ export namespace Prisma {
     description: string | null
     amount: Decimal | null
     status: string | null
-    client_id: number | null
-    developer_id: number | null
+    client_public_key: string | null
+    developer_public_key: string | null
     contract_address: string | null
     created_at: Date | null
   }
@@ -2433,8 +2425,8 @@ export namespace Prisma {
     description: string | null
     amount: Decimal | null
     status: string | null
-    client_id: number | null
-    developer_id: number | null
+    client_public_key: string | null
+    developer_public_key: string | null
     contract_address: string | null
     created_at: Date | null
   }
@@ -2445,8 +2437,8 @@ export namespace Prisma {
     description: number
     amount: number
     status: number
-    client_id: number
-    developer_id: number
+    client_public_key: number
+    developer_public_key: number
     contract_address: number
     created_at: number
     _all: number
@@ -2456,15 +2448,11 @@ export namespace Prisma {
   export type ProjectsAvgAggregateInputType = {
     project_id?: true
     amount?: true
-    client_id?: true
-    developer_id?: true
   }
 
   export type ProjectsSumAggregateInputType = {
     project_id?: true
     amount?: true
-    client_id?: true
-    developer_id?: true
   }
 
   export type ProjectsMinAggregateInputType = {
@@ -2473,8 +2461,8 @@ export namespace Prisma {
     description?: true
     amount?: true
     status?: true
-    client_id?: true
-    developer_id?: true
+    client_public_key?: true
+    developer_public_key?: true
     contract_address?: true
     created_at?: true
   }
@@ -2485,8 +2473,8 @@ export namespace Prisma {
     description?: true
     amount?: true
     status?: true
-    client_id?: true
-    developer_id?: true
+    client_public_key?: true
+    developer_public_key?: true
     contract_address?: true
     created_at?: true
   }
@@ -2497,8 +2485,8 @@ export namespace Prisma {
     description?: true
     amount?: true
     status?: true
-    client_id?: true
-    developer_id?: true
+    client_public_key?: true
+    developer_public_key?: true
     contract_address?: true
     created_at?: true
     _all?: true
@@ -2596,8 +2584,8 @@ export namespace Prisma {
     description: string | null
     amount: Decimal
     status: string | null
-    client_id: number | null
-    developer_id: number | null
+    client_public_key: string | null
+    developer_public_key: string | null
     contract_address: string | null
     created_at: Date | null
     _count: ProjectsCountAggregateOutputType | null
@@ -2627,8 +2615,8 @@ export namespace Prisma {
     description?: boolean
     amount?: boolean
     status?: boolean
-    client_id?: boolean
-    developer_id?: boolean
+    client_public_key?: boolean
+    developer_public_key?: boolean
     contract_address?: boolean
     created_at?: boolean
     project_logs?: boolean | projects$project_logsArgs<ExtArgs>
@@ -2644,8 +2632,8 @@ export namespace Prisma {
     description?: boolean
     amount?: boolean
     status?: boolean
-    client_id?: boolean
-    developer_id?: boolean
+    client_public_key?: boolean
+    developer_public_key?: boolean
     contract_address?: boolean
     created_at?: boolean
     users_projects_client_idTousers?: boolean | projects$users_projects_client_idTousersArgs<ExtArgs>
@@ -2658,8 +2646,8 @@ export namespace Prisma {
     description?: boolean
     amount?: boolean
     status?: boolean
-    client_id?: boolean
-    developer_id?: boolean
+    client_public_key?: boolean
+    developer_public_key?: boolean
     contract_address?: boolean
     created_at?: boolean
     users_projects_client_idTousers?: boolean | projects$users_projects_client_idTousersArgs<ExtArgs>
@@ -2672,13 +2660,13 @@ export namespace Prisma {
     description?: boolean
     amount?: boolean
     status?: boolean
-    client_id?: boolean
-    developer_id?: boolean
+    client_public_key?: boolean
+    developer_public_key?: boolean
     contract_address?: boolean
     created_at?: boolean
   }
 
-  export type projectsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"project_id" | "title" | "description" | "amount" | "status" | "client_id" | "developer_id" | "contract_address" | "created_at", ExtArgs["result"]["projects"]>
+  export type projectsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"project_id" | "title" | "description" | "amount" | "status" | "client_public_key" | "developer_public_key" | "contract_address" | "created_at", ExtArgs["result"]["projects"]>
   export type projectsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     project_logs?: boolean | projects$project_logsArgs<ExtArgs>
     users_projects_client_idTousers?: boolean | projects$users_projects_client_idTousersArgs<ExtArgs>
@@ -2709,8 +2697,8 @@ export namespace Prisma {
       description: string | null
       amount: Prisma.Decimal
       status: string | null
-      client_id: number | null
-      developer_id: number | null
+      client_public_key: string | null
+      developer_public_key: string | null
       contract_address: string | null
       created_at: Date | null
     }, ExtArgs["result"]["projects"]>
@@ -3145,8 +3133,8 @@ export namespace Prisma {
     readonly description: FieldRef<"projects", 'String'>
     readonly amount: FieldRef<"projects", 'Decimal'>
     readonly status: FieldRef<"projects", 'String'>
-    readonly client_id: FieldRef<"projects", 'Int'>
-    readonly developer_id: FieldRef<"projects", 'Int'>
+    readonly client_public_key: FieldRef<"projects", 'String'>
+    readonly developer_public_key: FieldRef<"projects", 'String'>
     readonly contract_address: FieldRef<"projects", 'String'>
     readonly created_at: FieldRef<"projects", 'DateTime'>
   }
@@ -4770,70 +4758,46 @@ export namespace Prisma {
 
   export type AggregateUsers = {
     _count: UsersCountAggregateOutputType | null
-    _avg: UsersAvgAggregateOutputType | null
-    _sum: UsersSumAggregateOutputType | null
     _min: UsersMinAggregateOutputType | null
     _max: UsersMaxAggregateOutputType | null
   }
 
-  export type UsersAvgAggregateOutputType = {
-    user_id: number | null
-  }
-
-  export type UsersSumAggregateOutputType = {
-    user_id: number | null
-  }
-
   export type UsersMinAggregateOutputType = {
-    user_id: number | null
-    wallet_adress: string | null
+    public_key: string | null
     rol: string | null
-    created_at: Date | null
+    user_name: string | null
   }
 
   export type UsersMaxAggregateOutputType = {
-    user_id: number | null
-    wallet_adress: string | null
+    public_key: string | null
     rol: string | null
-    created_at: Date | null
+    user_name: string | null
   }
 
   export type UsersCountAggregateOutputType = {
-    user_id: number
-    wallet_adress: number
+    public_key: number
     rol: number
-    created_at: number
+    user_name: number
     _all: number
   }
 
 
-  export type UsersAvgAggregateInputType = {
-    user_id?: true
-  }
-
-  export type UsersSumAggregateInputType = {
-    user_id?: true
-  }
-
   export type UsersMinAggregateInputType = {
-    user_id?: true
-    wallet_adress?: true
+    public_key?: true
     rol?: true
-    created_at?: true
+    user_name?: true
   }
 
   export type UsersMaxAggregateInputType = {
-    user_id?: true
-    wallet_adress?: true
+    public_key?: true
     rol?: true
-    created_at?: true
+    user_name?: true
   }
 
   export type UsersCountAggregateInputType = {
-    user_id?: true
-    wallet_adress?: true
+    public_key?: true
     rol?: true
-    created_at?: true
+    user_name?: true
     _all?: true
   }
 
@@ -4875,18 +4839,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: UsersAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: UsersSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: UsersMinAggregateInputType
@@ -4917,20 +4869,15 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: UsersCountAggregateInputType | true
-    _avg?: UsersAvgAggregateInputType
-    _sum?: UsersSumAggregateInputType
     _min?: UsersMinAggregateInputType
     _max?: UsersMaxAggregateInputType
   }
 
   export type UsersGroupByOutputType = {
-    user_id: number
-    wallet_adress: string
+    public_key: string
     rol: string
-    created_at: Date | null
+    user_name: string
     _count: UsersCountAggregateOutputType | null
-    _avg: UsersAvgAggregateOutputType | null
-    _sum: UsersSumAggregateOutputType | null
     _min: UsersMinAggregateOutputType | null
     _max: UsersMaxAggregateOutputType | null
   }
@@ -4950,10 +4897,9 @@ export namespace Prisma {
 
 
   export type usersSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    user_id?: boolean
-    wallet_adress?: boolean
+    public_key?: boolean
     rol?: boolean
-    created_at?: boolean
+    user_name?: boolean
     project_logs?: boolean | users$project_logsArgs<ExtArgs>
     projects_projects_client_idTousers?: boolean | users$projects_projects_client_idTousersArgs<ExtArgs>
     projects_projects_developer_idTousers?: boolean | users$projects_projects_developer_idTousersArgs<ExtArgs>
@@ -4961,27 +4907,24 @@ export namespace Prisma {
   }, ExtArgs["result"]["users"]>
 
   export type usersSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    user_id?: boolean
-    wallet_adress?: boolean
+    public_key?: boolean
     rol?: boolean
-    created_at?: boolean
+    user_name?: boolean
   }, ExtArgs["result"]["users"]>
 
   export type usersSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    user_id?: boolean
-    wallet_adress?: boolean
+    public_key?: boolean
     rol?: boolean
-    created_at?: boolean
+    user_name?: boolean
   }, ExtArgs["result"]["users"]>
 
   export type usersSelectScalar = {
-    user_id?: boolean
-    wallet_adress?: boolean
+    public_key?: boolean
     rol?: boolean
-    created_at?: boolean
+    user_name?: boolean
   }
 
-  export type usersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"user_id" | "wallet_adress" | "rol" | "created_at", ExtArgs["result"]["users"]>
+  export type usersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"public_key" | "rol" | "user_name", ExtArgs["result"]["users"]>
   export type usersInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     project_logs?: boolean | users$project_logsArgs<ExtArgs>
     projects_projects_client_idTousers?: boolean | users$projects_projects_client_idTousersArgs<ExtArgs>
@@ -4999,10 +4942,9 @@ export namespace Prisma {
       projects_projects_developer_idTousers: Prisma.$projectsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
-      user_id: number
-      wallet_adress: string
+      public_key: string
       rol: string
-      created_at: Date | null
+      user_name: string
     }, ExtArgs["result"]["users"]>
     composites: {}
   }
@@ -5086,8 +5028,8 @@ export namespace Prisma {
      * // Get first 10 Users
      * const users = await prisma.users.findMany({ take: 10 })
      * 
-     * // Only select the `user_id`
-     * const usersWithUser_idOnly = await prisma.users.findMany({ select: { user_id: true } })
+     * // Only select the `public_key`
+     * const usersWithPublic_keyOnly = await prisma.users.findMany({ select: { public_key: true } })
      * 
      */
     findMany<T extends usersFindManyArgs>(args?: SelectSubset<T, usersFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
@@ -5131,9 +5073,9 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Create many Users and only return the `user_id`
-     * const usersWithUser_idOnly = await prisma.users.createManyAndReturn({
-     *   select: { user_id: true },
+     * // Create many Users and only return the `public_key`
+     * const usersWithPublic_keyOnly = await prisma.users.createManyAndReturn({
+     *   select: { public_key: true },
      *   data: [
      *     // ... provide data here
      *   ]
@@ -5222,9 +5164,9 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more Users and only return the `user_id`
-     * const usersWithUser_idOnly = await prisma.users.updateManyAndReturn({
-     *   select: { user_id: true },
+     * // Update zero or more Users and only return the `public_key`
+     * const usersWithPublic_keyOnly = await prisma.users.updateManyAndReturn({
+     *   select: { public_key: true },
      *   where: {
      *     // ... provide filter here
      *   },
@@ -5429,10 +5371,9 @@ export namespace Prisma {
    * Fields of the users model
    */
   interface usersFieldRefs {
-    readonly user_id: FieldRef<"users", 'Int'>
-    readonly wallet_adress: FieldRef<"users", 'String'>
+    readonly public_key: FieldRef<"users", 'String'>
     readonly rol: FieldRef<"users", 'String'>
-    readonly created_at: FieldRef<"users", 'DateTime'>
+    readonly user_name: FieldRef<"users", 'String'>
   }
     
 
@@ -5928,7 +5869,7 @@ export namespace Prisma {
   export const Project_logsScalarFieldEnum: {
     project_log_id: 'project_log_id',
     project_id: 'project_id',
-    user_id: 'user_id',
+    public_key: 'public_key',
     action: 'action',
     wallet_address: 'wallet_address',
     timestamp: 'timestamp'
@@ -5943,8 +5884,8 @@ export namespace Prisma {
     description: 'description',
     amount: 'amount',
     status: 'status',
-    client_id: 'client_id',
-    developer_id: 'developer_id',
+    client_public_key: 'client_public_key',
+    developer_public_key: 'developer_public_key',
     contract_address: 'contract_address',
     created_at: 'created_at'
   };
@@ -5964,10 +5905,9 @@ export namespace Prisma {
 
 
   export const UsersScalarFieldEnum: {
-    user_id: 'user_id',
-    wallet_adress: 'wallet_adress',
+    public_key: 'public_key',
     rol: 'rol',
-    created_at: 'created_at'
+    user_name: 'user_name'
   };
 
   export type UsersScalarFieldEnum = (typeof UsersScalarFieldEnum)[keyof typeof UsersScalarFieldEnum]
@@ -6088,7 +6028,7 @@ export namespace Prisma {
     NOT?: project_logsWhereInput | project_logsWhereInput[]
     project_log_id?: IntFilter<"project_logs"> | number
     project_id?: IntNullableFilter<"project_logs"> | number | null
-    user_id?: IntNullableFilter<"project_logs"> | number | null
+    public_key?: StringNullableFilter<"project_logs"> | string | null
     action?: StringFilter<"project_logs"> | string
     wallet_address?: StringNullableFilter<"project_logs"> | string | null
     timestamp?: DateTimeNullableFilter<"project_logs"> | Date | string | null
@@ -6099,7 +6039,7 @@ export namespace Prisma {
   export type project_logsOrderByWithRelationInput = {
     project_log_id?: SortOrder
     project_id?: SortOrderInput | SortOrder
-    user_id?: SortOrderInput | SortOrder
+    public_key?: SortOrderInput | SortOrder
     action?: SortOrder
     wallet_address?: SortOrderInput | SortOrder
     timestamp?: SortOrderInput | SortOrder
@@ -6113,7 +6053,7 @@ export namespace Prisma {
     OR?: project_logsWhereInput[]
     NOT?: project_logsWhereInput | project_logsWhereInput[]
     project_id?: IntNullableFilter<"project_logs"> | number | null
-    user_id?: IntNullableFilter<"project_logs"> | number | null
+    public_key?: StringNullableFilter<"project_logs"> | string | null
     action?: StringFilter<"project_logs"> | string
     wallet_address?: StringNullableFilter<"project_logs"> | string | null
     timestamp?: DateTimeNullableFilter<"project_logs"> | Date | string | null
@@ -6124,7 +6064,7 @@ export namespace Prisma {
   export type project_logsOrderByWithAggregationInput = {
     project_log_id?: SortOrder
     project_id?: SortOrderInput | SortOrder
-    user_id?: SortOrderInput | SortOrder
+    public_key?: SortOrderInput | SortOrder
     action?: SortOrder
     wallet_address?: SortOrderInput | SortOrder
     timestamp?: SortOrderInput | SortOrder
@@ -6141,7 +6081,7 @@ export namespace Prisma {
     NOT?: project_logsScalarWhereWithAggregatesInput | project_logsScalarWhereWithAggregatesInput[]
     project_log_id?: IntWithAggregatesFilter<"project_logs"> | number
     project_id?: IntNullableWithAggregatesFilter<"project_logs"> | number | null
-    user_id?: IntNullableWithAggregatesFilter<"project_logs"> | number | null
+    public_key?: StringNullableWithAggregatesFilter<"project_logs"> | string | null
     action?: StringWithAggregatesFilter<"project_logs"> | string
     wallet_address?: StringNullableWithAggregatesFilter<"project_logs"> | string | null
     timestamp?: DateTimeNullableWithAggregatesFilter<"project_logs"> | Date | string | null
@@ -6156,8 +6096,8 @@ export namespace Prisma {
     description?: StringNullableFilter<"projects"> | string | null
     amount?: DecimalFilter<"projects"> | Decimal | DecimalJsLike | number | string
     status?: StringNullableFilter<"projects"> | string | null
-    client_id?: IntNullableFilter<"projects"> | number | null
-    developer_id?: IntNullableFilter<"projects"> | number | null
+    client_public_key?: StringNullableFilter<"projects"> | string | null
+    developer_public_key?: StringNullableFilter<"projects"> | string | null
     contract_address?: StringNullableFilter<"projects"> | string | null
     created_at?: DateTimeNullableFilter<"projects"> | Date | string | null
     project_logs?: Project_logsListRelationFilter
@@ -6172,8 +6112,8 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder
     amount?: SortOrder
     status?: SortOrderInput | SortOrder
-    client_id?: SortOrderInput | SortOrder
-    developer_id?: SortOrderInput | SortOrder
+    client_public_key?: SortOrderInput | SortOrder
+    developer_public_key?: SortOrderInput | SortOrder
     contract_address?: SortOrderInput | SortOrder
     created_at?: SortOrderInput | SortOrder
     project_logs?: project_logsOrderByRelationAggregateInput
@@ -6191,8 +6131,8 @@ export namespace Prisma {
     description?: StringNullableFilter<"projects"> | string | null
     amount?: DecimalFilter<"projects"> | Decimal | DecimalJsLike | number | string
     status?: StringNullableFilter<"projects"> | string | null
-    client_id?: IntNullableFilter<"projects"> | number | null
-    developer_id?: IntNullableFilter<"projects"> | number | null
+    client_public_key?: StringNullableFilter<"projects"> | string | null
+    developer_public_key?: StringNullableFilter<"projects"> | string | null
     contract_address?: StringNullableFilter<"projects"> | string | null
     created_at?: DateTimeNullableFilter<"projects"> | Date | string | null
     project_logs?: Project_logsListRelationFilter
@@ -6207,8 +6147,8 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder
     amount?: SortOrder
     status?: SortOrderInput | SortOrder
-    client_id?: SortOrderInput | SortOrder
-    developer_id?: SortOrderInput | SortOrder
+    client_public_key?: SortOrderInput | SortOrder
+    developer_public_key?: SortOrderInput | SortOrder
     contract_address?: SortOrderInput | SortOrder
     created_at?: SortOrderInput | SortOrder
     _count?: projectsCountOrderByAggregateInput
@@ -6227,8 +6167,8 @@ export namespace Prisma {
     description?: StringNullableWithAggregatesFilter<"projects"> | string | null
     amount?: DecimalWithAggregatesFilter<"projects"> | Decimal | DecimalJsLike | number | string
     status?: StringNullableWithAggregatesFilter<"projects"> | string | null
-    client_id?: IntNullableWithAggregatesFilter<"projects"> | number | null
-    developer_id?: IntNullableWithAggregatesFilter<"projects"> | number | null
+    client_public_key?: StringNullableWithAggregatesFilter<"projects"> | string | null
+    developer_public_key?: StringNullableWithAggregatesFilter<"projects"> | string | null
     contract_address?: StringNullableWithAggregatesFilter<"projects"> | string | null
     created_at?: DateTimeNullableWithAggregatesFilter<"projects"> | Date | string | null
   }
@@ -6294,58 +6234,51 @@ export namespace Prisma {
     AND?: usersWhereInput | usersWhereInput[]
     OR?: usersWhereInput[]
     NOT?: usersWhereInput | usersWhereInput[]
-    user_id?: IntFilter<"users"> | number
-    wallet_adress?: StringFilter<"users"> | string
+    public_key?: StringFilter<"users"> | string
     rol?: StringFilter<"users"> | string
-    created_at?: DateTimeNullableFilter<"users"> | Date | string | null
+    user_name?: StringFilter<"users"> | string
     project_logs?: Project_logsListRelationFilter
     projects_projects_client_idTousers?: ProjectsListRelationFilter
     projects_projects_developer_idTousers?: ProjectsListRelationFilter
   }
 
   export type usersOrderByWithRelationInput = {
-    user_id?: SortOrder
-    wallet_adress?: SortOrder
+    public_key?: SortOrder
     rol?: SortOrder
-    created_at?: SortOrderInput | SortOrder
+    user_name?: SortOrder
     project_logs?: project_logsOrderByRelationAggregateInput
     projects_projects_client_idTousers?: projectsOrderByRelationAggregateInput
     projects_projects_developer_idTousers?: projectsOrderByRelationAggregateInput
   }
 
   export type usersWhereUniqueInput = Prisma.AtLeast<{
-    user_id?: number
-    wallet_adress?: string
+    public_key?: string
     AND?: usersWhereInput | usersWhereInput[]
     OR?: usersWhereInput[]
     NOT?: usersWhereInput | usersWhereInput[]
     rol?: StringFilter<"users"> | string
-    created_at?: DateTimeNullableFilter<"users"> | Date | string | null
+    user_name?: StringFilter<"users"> | string
     project_logs?: Project_logsListRelationFilter
     projects_projects_client_idTousers?: ProjectsListRelationFilter
     projects_projects_developer_idTousers?: ProjectsListRelationFilter
-  }, "user_id" | "wallet_adress">
+  }, "public_key">
 
   export type usersOrderByWithAggregationInput = {
-    user_id?: SortOrder
-    wallet_adress?: SortOrder
+    public_key?: SortOrder
     rol?: SortOrder
-    created_at?: SortOrderInput | SortOrder
+    user_name?: SortOrder
     _count?: usersCountOrderByAggregateInput
-    _avg?: usersAvgOrderByAggregateInput
     _max?: usersMaxOrderByAggregateInput
     _min?: usersMinOrderByAggregateInput
-    _sum?: usersSumOrderByAggregateInput
   }
 
   export type usersScalarWhereWithAggregatesInput = {
     AND?: usersScalarWhereWithAggregatesInput | usersScalarWhereWithAggregatesInput[]
     OR?: usersScalarWhereWithAggregatesInput[]
     NOT?: usersScalarWhereWithAggregatesInput | usersScalarWhereWithAggregatesInput[]
-    user_id?: IntWithAggregatesFilter<"users"> | number
-    wallet_adress?: StringWithAggregatesFilter<"users"> | string
+    public_key?: StringWithAggregatesFilter<"users"> | string
     rol?: StringWithAggregatesFilter<"users"> | string
-    created_at?: DateTimeNullableWithAggregatesFilter<"users"> | Date | string | null
+    user_name?: StringWithAggregatesFilter<"users"> | string
   }
 
   export type project_logsCreateInput = {
@@ -6359,7 +6292,7 @@ export namespace Prisma {
   export type project_logsUncheckedCreateInput = {
     project_log_id?: number
     project_id?: number | null
-    user_id?: number | null
+    public_key?: string | null
     action: string
     wallet_address?: string | null
     timestamp?: Date | string | null
@@ -6376,7 +6309,7 @@ export namespace Prisma {
   export type project_logsUncheckedUpdateInput = {
     project_log_id?: IntFieldUpdateOperationsInput | number
     project_id?: NullableIntFieldUpdateOperationsInput | number | null
-    user_id?: NullableIntFieldUpdateOperationsInput | number | null
+    public_key?: NullableStringFieldUpdateOperationsInput | string | null
     action?: StringFieldUpdateOperationsInput | string
     wallet_address?: NullableStringFieldUpdateOperationsInput | string | null
     timestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6385,7 +6318,7 @@ export namespace Prisma {
   export type project_logsCreateManyInput = {
     project_log_id?: number
     project_id?: number | null
-    user_id?: number | null
+    public_key?: string | null
     action: string
     wallet_address?: string | null
     timestamp?: Date | string | null
@@ -6400,7 +6333,7 @@ export namespace Prisma {
   export type project_logsUncheckedUpdateManyInput = {
     project_log_id?: IntFieldUpdateOperationsInput | number
     project_id?: NullableIntFieldUpdateOperationsInput | number | null
-    user_id?: NullableIntFieldUpdateOperationsInput | number | null
+    public_key?: NullableStringFieldUpdateOperationsInput | string | null
     action?: StringFieldUpdateOperationsInput | string
     wallet_address?: NullableStringFieldUpdateOperationsInput | string | null
     timestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6425,8 +6358,8 @@ export namespace Prisma {
     description?: string | null
     amount: Decimal | DecimalJsLike | number | string
     status?: string | null
-    client_id?: number | null
-    developer_id?: number | null
+    client_public_key?: string | null
+    developer_public_key?: string | null
     contract_address?: string | null
     created_at?: Date | string | null
     project_logs?: project_logsUncheckedCreateNestedManyWithoutProjectsInput
@@ -6452,8 +6385,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
-    client_id?: NullableIntFieldUpdateOperationsInput | number | null
-    developer_id?: NullableIntFieldUpdateOperationsInput | number | null
+    client_public_key?: NullableStringFieldUpdateOperationsInput | string | null
+    developer_public_key?: NullableStringFieldUpdateOperationsInput | string | null
     contract_address?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     project_logs?: project_logsUncheckedUpdateManyWithoutProjectsNestedInput
@@ -6466,8 +6399,8 @@ export namespace Prisma {
     description?: string | null
     amount: Decimal | DecimalJsLike | number | string
     status?: string | null
-    client_id?: number | null
-    developer_id?: number | null
+    client_public_key?: string | null
+    developer_public_key?: string | null
     contract_address?: string | null
     created_at?: Date | string | null
   }
@@ -6487,8 +6420,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
-    client_id?: NullableIntFieldUpdateOperationsInput | number | null
-    developer_id?: NullableIntFieldUpdateOperationsInput | number | null
+    client_public_key?: NullableStringFieldUpdateOperationsInput | string | null
+    developer_public_key?: NullableStringFieldUpdateOperationsInput | string | null
     contract_address?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
@@ -6546,61 +6479,57 @@ export namespace Prisma {
   }
 
   export type usersCreateInput = {
-    wallet_adress: string
+    public_key: string
     rol: string
-    created_at?: Date | string | null
+    user_name: string
     project_logs?: project_logsCreateNestedManyWithoutUsersInput
     projects_projects_client_idTousers?: projectsCreateNestedManyWithoutUsers_projects_client_idTousersInput
     projects_projects_developer_idTousers?: projectsCreateNestedManyWithoutUsers_projects_developer_idTousersInput
   }
 
   export type usersUncheckedCreateInput = {
-    user_id?: number
-    wallet_adress: string
+    public_key: string
     rol: string
-    created_at?: Date | string | null
+    user_name: string
     project_logs?: project_logsUncheckedCreateNestedManyWithoutUsersInput
     projects_projects_client_idTousers?: projectsUncheckedCreateNestedManyWithoutUsers_projects_client_idTousersInput
     projects_projects_developer_idTousers?: projectsUncheckedCreateNestedManyWithoutUsers_projects_developer_idTousersInput
   }
 
   export type usersUpdateInput = {
-    wallet_adress?: StringFieldUpdateOperationsInput | string
+    public_key?: StringFieldUpdateOperationsInput | string
     rol?: StringFieldUpdateOperationsInput | string
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user_name?: StringFieldUpdateOperationsInput | string
     project_logs?: project_logsUpdateManyWithoutUsersNestedInput
     projects_projects_client_idTousers?: projectsUpdateManyWithoutUsers_projects_client_idTousersNestedInput
     projects_projects_developer_idTousers?: projectsUpdateManyWithoutUsers_projects_developer_idTousersNestedInput
   }
 
   export type usersUncheckedUpdateInput = {
-    user_id?: IntFieldUpdateOperationsInput | number
-    wallet_adress?: StringFieldUpdateOperationsInput | string
+    public_key?: StringFieldUpdateOperationsInput | string
     rol?: StringFieldUpdateOperationsInput | string
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user_name?: StringFieldUpdateOperationsInput | string
     project_logs?: project_logsUncheckedUpdateManyWithoutUsersNestedInput
     projects_projects_client_idTousers?: projectsUncheckedUpdateManyWithoutUsers_projects_client_idTousersNestedInput
     projects_projects_developer_idTousers?: projectsUncheckedUpdateManyWithoutUsers_projects_developer_idTousersNestedInput
   }
 
   export type usersCreateManyInput = {
-    user_id?: number
-    wallet_adress: string
+    public_key: string
     rol: string
-    created_at?: Date | string | null
+    user_name: string
   }
 
   export type usersUpdateManyMutationInput = {
-    wallet_adress?: StringFieldUpdateOperationsInput | string
+    public_key?: StringFieldUpdateOperationsInput | string
     rol?: StringFieldUpdateOperationsInput | string
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user_name?: StringFieldUpdateOperationsInput | string
   }
 
   export type usersUncheckedUpdateManyInput = {
-    user_id?: IntFieldUpdateOperationsInput | number
-    wallet_adress?: StringFieldUpdateOperationsInput | string
+    public_key?: StringFieldUpdateOperationsInput | string
     rol?: StringFieldUpdateOperationsInput | string
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user_name?: StringFieldUpdateOperationsInput | string
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -6625,21 +6554,6 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
-  export type StringFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringFilter<$PrismaModel> | string
-  }
-
   export type StringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -6653,6 +6567,21 @@ export namespace Prisma {
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     mode?: QueryMode
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type StringFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringFilter<$PrismaModel> | string
   }
 
   export type DateTimeNullableFilter<$PrismaModel = never> = {
@@ -6684,7 +6613,7 @@ export namespace Prisma {
   export type project_logsCountOrderByAggregateInput = {
     project_log_id?: SortOrder
     project_id?: SortOrder
-    user_id?: SortOrder
+    public_key?: SortOrder
     action?: SortOrder
     wallet_address?: SortOrder
     timestamp?: SortOrder
@@ -6693,13 +6622,12 @@ export namespace Prisma {
   export type project_logsAvgOrderByAggregateInput = {
     project_log_id?: SortOrder
     project_id?: SortOrder
-    user_id?: SortOrder
   }
 
   export type project_logsMaxOrderByAggregateInput = {
     project_log_id?: SortOrder
     project_id?: SortOrder
-    user_id?: SortOrder
+    public_key?: SortOrder
     action?: SortOrder
     wallet_address?: SortOrder
     timestamp?: SortOrder
@@ -6708,7 +6636,7 @@ export namespace Prisma {
   export type project_logsMinOrderByAggregateInput = {
     project_log_id?: SortOrder
     project_id?: SortOrder
-    user_id?: SortOrder
+    public_key?: SortOrder
     action?: SortOrder
     wallet_address?: SortOrder
     timestamp?: SortOrder
@@ -6717,7 +6645,6 @@ export namespace Prisma {
   export type project_logsSumOrderByAggregateInput = {
     project_log_id?: SortOrder
     project_id?: SortOrder
-    user_id?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -6752,24 +6679,6 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
-  export type StringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
-  }
-
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -6786,6 +6695,24 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type StringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
   }
 
   export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -6839,8 +6766,8 @@ export namespace Prisma {
     description?: SortOrder
     amount?: SortOrder
     status?: SortOrder
-    client_id?: SortOrder
-    developer_id?: SortOrder
+    client_public_key?: SortOrder
+    developer_public_key?: SortOrder
     contract_address?: SortOrder
     created_at?: SortOrder
   }
@@ -6848,8 +6775,6 @@ export namespace Prisma {
   export type projectsAvgOrderByAggregateInput = {
     project_id?: SortOrder
     amount?: SortOrder
-    client_id?: SortOrder
-    developer_id?: SortOrder
   }
 
   export type projectsMaxOrderByAggregateInput = {
@@ -6858,8 +6783,8 @@ export namespace Prisma {
     description?: SortOrder
     amount?: SortOrder
     status?: SortOrder
-    client_id?: SortOrder
-    developer_id?: SortOrder
+    client_public_key?: SortOrder
+    developer_public_key?: SortOrder
     contract_address?: SortOrder
     created_at?: SortOrder
   }
@@ -6870,8 +6795,8 @@ export namespace Prisma {
     description?: SortOrder
     amount?: SortOrder
     status?: SortOrder
-    client_id?: SortOrder
-    developer_id?: SortOrder
+    client_public_key?: SortOrder
+    developer_public_key?: SortOrder
     contract_address?: SortOrder
     created_at?: SortOrder
   }
@@ -6879,8 +6804,6 @@ export namespace Prisma {
   export type projectsSumOrderByAggregateInput = {
     project_id?: SortOrder
     amount?: SortOrder
-    client_id?: SortOrder
-    developer_id?: SortOrder
   }
 
   export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
@@ -6957,32 +6880,21 @@ export namespace Prisma {
   }
 
   export type usersCountOrderByAggregateInput = {
-    user_id?: SortOrder
-    wallet_adress?: SortOrder
+    public_key?: SortOrder
     rol?: SortOrder
-    created_at?: SortOrder
-  }
-
-  export type usersAvgOrderByAggregateInput = {
-    user_id?: SortOrder
+    user_name?: SortOrder
   }
 
   export type usersMaxOrderByAggregateInput = {
-    user_id?: SortOrder
-    wallet_adress?: SortOrder
+    public_key?: SortOrder
     rol?: SortOrder
-    created_at?: SortOrder
+    user_name?: SortOrder
   }
 
   export type usersMinOrderByAggregateInput = {
-    user_id?: SortOrder
-    wallet_adress?: SortOrder
+    public_key?: SortOrder
     rol?: SortOrder
-    created_at?: SortOrder
-  }
-
-  export type usersSumOrderByAggregateInput = {
-    user_id?: SortOrder
+    user_name?: SortOrder
   }
 
   export type projectsCreateNestedOneWithoutProject_logsInput = {
@@ -7337,20 +7249,6 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
-  export type NestedStringFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringFilter<$PrismaModel> | string
-  }
-
   export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -7363,6 +7261,20 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedStringFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringFilter<$PrismaModel> | string
   }
 
   export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
@@ -7430,23 +7342,6 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
-  export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
-  }
-
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -7462,6 +7357,23 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
   }
 
   export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -7536,8 +7448,8 @@ export namespace Prisma {
     description?: string | null
     amount: Decimal | DecimalJsLike | number | string
     status?: string | null
-    client_id?: number | null
-    developer_id?: number | null
+    client_public_key?: string | null
+    developer_public_key?: string | null
     contract_address?: string | null
     created_at?: Date | string | null
     tasks?: tasksUncheckedCreateNestedManyWithoutProjectsInput
@@ -7549,18 +7461,17 @@ export namespace Prisma {
   }
 
   export type usersCreateWithoutProject_logsInput = {
-    wallet_adress: string
+    public_key: string
     rol: string
-    created_at?: Date | string | null
+    user_name: string
     projects_projects_client_idTousers?: projectsCreateNestedManyWithoutUsers_projects_client_idTousersInput
     projects_projects_developer_idTousers?: projectsCreateNestedManyWithoutUsers_projects_developer_idTousersInput
   }
 
   export type usersUncheckedCreateWithoutProject_logsInput = {
-    user_id?: number
-    wallet_adress: string
+    public_key: string
     rol: string
-    created_at?: Date | string | null
+    user_name: string
     projects_projects_client_idTousers?: projectsUncheckedCreateNestedManyWithoutUsers_projects_client_idTousersInput
     projects_projects_developer_idTousers?: projectsUncheckedCreateNestedManyWithoutUsers_projects_developer_idTousersInput
   }
@@ -7599,8 +7510,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
-    client_id?: NullableIntFieldUpdateOperationsInput | number | null
-    developer_id?: NullableIntFieldUpdateOperationsInput | number | null
+    client_public_key?: NullableStringFieldUpdateOperationsInput | string | null
+    developer_public_key?: NullableStringFieldUpdateOperationsInput | string | null
     contract_address?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tasks?: tasksUncheckedUpdateManyWithoutProjectsNestedInput
@@ -7618,18 +7529,17 @@ export namespace Prisma {
   }
 
   export type usersUpdateWithoutProject_logsInput = {
-    wallet_adress?: StringFieldUpdateOperationsInput | string
+    public_key?: StringFieldUpdateOperationsInput | string
     rol?: StringFieldUpdateOperationsInput | string
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user_name?: StringFieldUpdateOperationsInput | string
     projects_projects_client_idTousers?: projectsUpdateManyWithoutUsers_projects_client_idTousersNestedInput
     projects_projects_developer_idTousers?: projectsUpdateManyWithoutUsers_projects_developer_idTousersNestedInput
   }
 
   export type usersUncheckedUpdateWithoutProject_logsInput = {
-    user_id?: IntFieldUpdateOperationsInput | number
-    wallet_adress?: StringFieldUpdateOperationsInput | string
+    public_key?: StringFieldUpdateOperationsInput | string
     rol?: StringFieldUpdateOperationsInput | string
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user_name?: StringFieldUpdateOperationsInput | string
     projects_projects_client_idTousers?: projectsUncheckedUpdateManyWithoutUsers_projects_client_idTousersNestedInput
     projects_projects_developer_idTousers?: projectsUncheckedUpdateManyWithoutUsers_projects_developer_idTousersNestedInput
   }
@@ -7643,7 +7553,7 @@ export namespace Prisma {
 
   export type project_logsUncheckedCreateWithoutProjectsInput = {
     project_log_id?: number
-    user_id?: number | null
+    public_key?: string | null
     action: string
     wallet_address?: string | null
     timestamp?: Date | string | null
@@ -7660,18 +7570,17 @@ export namespace Prisma {
   }
 
   export type usersCreateWithoutProjects_projects_client_idTousersInput = {
-    wallet_adress: string
+    public_key: string
     rol: string
-    created_at?: Date | string | null
+    user_name: string
     project_logs?: project_logsCreateNestedManyWithoutUsersInput
     projects_projects_developer_idTousers?: projectsCreateNestedManyWithoutUsers_projects_developer_idTousersInput
   }
 
   export type usersUncheckedCreateWithoutProjects_projects_client_idTousersInput = {
-    user_id?: number
-    wallet_adress: string
+    public_key: string
     rol: string
-    created_at?: Date | string | null
+    user_name: string
     project_logs?: project_logsUncheckedCreateNestedManyWithoutUsersInput
     projects_projects_developer_idTousers?: projectsUncheckedCreateNestedManyWithoutUsers_projects_developer_idTousersInput
   }
@@ -7682,18 +7591,17 @@ export namespace Prisma {
   }
 
   export type usersCreateWithoutProjects_projects_developer_idTousersInput = {
-    wallet_adress: string
+    public_key: string
     rol: string
-    created_at?: Date | string | null
+    user_name: string
     project_logs?: project_logsCreateNestedManyWithoutUsersInput
     projects_projects_client_idTousers?: projectsCreateNestedManyWithoutUsers_projects_client_idTousersInput
   }
 
   export type usersUncheckedCreateWithoutProjects_projects_developer_idTousersInput = {
-    user_id?: number
-    wallet_adress: string
+    public_key: string
     rol: string
-    created_at?: Date | string | null
+    user_name: string
     project_logs?: project_logsUncheckedCreateNestedManyWithoutUsersInput
     projects_projects_client_idTousers?: projectsUncheckedCreateNestedManyWithoutUsers_projects_client_idTousersInput
   }
@@ -7748,7 +7656,7 @@ export namespace Prisma {
     NOT?: project_logsScalarWhereInput | project_logsScalarWhereInput[]
     project_log_id?: IntFilter<"project_logs"> | number
     project_id?: IntNullableFilter<"project_logs"> | number | null
-    user_id?: IntNullableFilter<"project_logs"> | number | null
+    public_key?: StringNullableFilter<"project_logs"> | string | null
     action?: StringFilter<"project_logs"> | string
     wallet_address?: StringNullableFilter<"project_logs"> | string | null
     timestamp?: DateTimeNullableFilter<"project_logs"> | Date | string | null
@@ -7766,18 +7674,17 @@ export namespace Prisma {
   }
 
   export type usersUpdateWithoutProjects_projects_client_idTousersInput = {
-    wallet_adress?: StringFieldUpdateOperationsInput | string
+    public_key?: StringFieldUpdateOperationsInput | string
     rol?: StringFieldUpdateOperationsInput | string
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user_name?: StringFieldUpdateOperationsInput | string
     project_logs?: project_logsUpdateManyWithoutUsersNestedInput
     projects_projects_developer_idTousers?: projectsUpdateManyWithoutUsers_projects_developer_idTousersNestedInput
   }
 
   export type usersUncheckedUpdateWithoutProjects_projects_client_idTousersInput = {
-    user_id?: IntFieldUpdateOperationsInput | number
-    wallet_adress?: StringFieldUpdateOperationsInput | string
+    public_key?: StringFieldUpdateOperationsInput | string
     rol?: StringFieldUpdateOperationsInput | string
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user_name?: StringFieldUpdateOperationsInput | string
     project_logs?: project_logsUncheckedUpdateManyWithoutUsersNestedInput
     projects_projects_developer_idTousers?: projectsUncheckedUpdateManyWithoutUsers_projects_developer_idTousersNestedInput
   }
@@ -7794,18 +7701,17 @@ export namespace Prisma {
   }
 
   export type usersUpdateWithoutProjects_projects_developer_idTousersInput = {
-    wallet_adress?: StringFieldUpdateOperationsInput | string
+    public_key?: StringFieldUpdateOperationsInput | string
     rol?: StringFieldUpdateOperationsInput | string
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user_name?: StringFieldUpdateOperationsInput | string
     project_logs?: project_logsUpdateManyWithoutUsersNestedInput
     projects_projects_client_idTousers?: projectsUpdateManyWithoutUsers_projects_client_idTousersNestedInput
   }
 
   export type usersUncheckedUpdateWithoutProjects_projects_developer_idTousersInput = {
-    user_id?: IntFieldUpdateOperationsInput | number
-    wallet_adress?: StringFieldUpdateOperationsInput | string
+    public_key?: StringFieldUpdateOperationsInput | string
     rol?: StringFieldUpdateOperationsInput | string
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user_name?: StringFieldUpdateOperationsInput | string
     project_logs?: project_logsUncheckedUpdateManyWithoutUsersNestedInput
     projects_projects_client_idTousers?: projectsUncheckedUpdateManyWithoutUsers_projects_client_idTousersNestedInput
   }
@@ -7855,8 +7761,8 @@ export namespace Prisma {
     description?: string | null
     amount: Decimal | DecimalJsLike | number | string
     status?: string | null
-    client_id?: number | null
-    developer_id?: number | null
+    client_public_key?: string | null
+    developer_public_key?: string | null
     contract_address?: string | null
     created_at?: Date | string | null
     project_logs?: project_logsUncheckedCreateNestedManyWithoutProjectsInput
@@ -7896,8 +7802,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
-    client_id?: NullableIntFieldUpdateOperationsInput | number | null
-    developer_id?: NullableIntFieldUpdateOperationsInput | number | null
+    client_public_key?: NullableStringFieldUpdateOperationsInput | string | null
+    developer_public_key?: NullableStringFieldUpdateOperationsInput | string | null
     contract_address?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     project_logs?: project_logsUncheckedUpdateManyWithoutProjectsNestedInput
@@ -7946,7 +7852,7 @@ export namespace Prisma {
     description?: string | null
     amount: Decimal | DecimalJsLike | number | string
     status?: string | null
-    developer_id?: number | null
+    developer_public_key?: string | null
     contract_address?: string | null
     created_at?: Date | string | null
     project_logs?: project_logsUncheckedCreateNestedManyWithoutProjectsInput
@@ -7981,7 +7887,7 @@ export namespace Prisma {
     description?: string | null
     amount: Decimal | DecimalJsLike | number | string
     status?: string | null
-    client_id?: number | null
+    client_public_key?: string | null
     contract_address?: string | null
     created_at?: Date | string | null
     project_logs?: project_logsUncheckedCreateNestedManyWithoutProjectsInput
@@ -8039,8 +7945,8 @@ export namespace Prisma {
     description?: StringNullableFilter<"projects"> | string | null
     amount?: DecimalFilter<"projects"> | Decimal | DecimalJsLike | number | string
     status?: StringNullableFilter<"projects"> | string | null
-    client_id?: IntNullableFilter<"projects"> | number | null
-    developer_id?: IntNullableFilter<"projects"> | number | null
+    client_public_key?: StringNullableFilter<"projects"> | string | null
+    developer_public_key?: StringNullableFilter<"projects"> | string | null
     contract_address?: StringNullableFilter<"projects"> | string | null
     created_at?: DateTimeNullableFilter<"projects"> | Date | string | null
   }
@@ -8063,7 +7969,7 @@ export namespace Prisma {
 
   export type project_logsCreateManyProjectsInput = {
     project_log_id?: number
-    user_id?: number | null
+    public_key?: string | null
     action: string
     wallet_address?: string | null
     timestamp?: Date | string | null
@@ -8085,7 +7991,7 @@ export namespace Prisma {
 
   export type project_logsUncheckedUpdateWithoutProjectsInput = {
     project_log_id?: IntFieldUpdateOperationsInput | number
-    user_id?: NullableIntFieldUpdateOperationsInput | number | null
+    public_key?: NullableStringFieldUpdateOperationsInput | string | null
     action?: StringFieldUpdateOperationsInput | string
     wallet_address?: NullableStringFieldUpdateOperationsInput | string | null
     timestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8093,7 +7999,7 @@ export namespace Prisma {
 
   export type project_logsUncheckedUpdateManyWithoutProjectsInput = {
     project_log_id?: IntFieldUpdateOperationsInput | number
-    user_id?: NullableIntFieldUpdateOperationsInput | number | null
+    public_key?: NullableStringFieldUpdateOperationsInput | string | null
     action?: StringFieldUpdateOperationsInput | string
     wallet_address?: NullableStringFieldUpdateOperationsInput | string | null
     timestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8133,7 +8039,7 @@ export namespace Prisma {
     description?: string | null
     amount: Decimal | DecimalJsLike | number | string
     status?: string | null
-    developer_id?: number | null
+    developer_public_key?: string | null
     contract_address?: string | null
     created_at?: Date | string | null
   }
@@ -8144,7 +8050,7 @@ export namespace Prisma {
     description?: string | null
     amount: Decimal | DecimalJsLike | number | string
     status?: string | null
-    client_id?: number | null
+    client_public_key?: string | null
     contract_address?: string | null
     created_at?: Date | string | null
   }
@@ -8190,7 +8096,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
-    developer_id?: NullableIntFieldUpdateOperationsInput | number | null
+    developer_public_key?: NullableStringFieldUpdateOperationsInput | string | null
     contract_address?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     project_logs?: project_logsUncheckedUpdateManyWithoutProjectsNestedInput
@@ -8203,7 +8109,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
-    developer_id?: NullableIntFieldUpdateOperationsInput | number | null
+    developer_public_key?: NullableStringFieldUpdateOperationsInput | string | null
     contract_address?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
@@ -8226,7 +8132,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
-    client_id?: NullableIntFieldUpdateOperationsInput | number | null
+    client_public_key?: NullableStringFieldUpdateOperationsInput | string | null
     contract_address?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     project_logs?: project_logsUncheckedUpdateManyWithoutProjectsNestedInput
@@ -8239,7 +8145,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
-    client_id?: NullableIntFieldUpdateOperationsInput | number | null
+    client_public_key?: NullableStringFieldUpdateOperationsInput | string | null
     contract_address?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }

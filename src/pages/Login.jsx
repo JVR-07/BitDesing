@@ -6,37 +6,20 @@ import './Login.css';
 const Login = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
-  const [formData, setFormData] = useState({
-    username: '',
-    password: ''
-  });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [showRegistration, setShowRegistration] = useState(false);
+  const [registrationData, setRegistrationData] = useState({
+    username: '',
+    role: 'client'
+  });
+  const [publicKey, setPublicKey] = useState('');
 
-  const handleInputChange = (e) => {
-    setFormData({
-      ...formData,
+  const handleRegistrationChange = (e) => {
+    setRegistrationData({
+      ...registrationData,
       [e.target.name]: e.target.value
     });
-  };
-
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError('');
-
-    try {
-      const result = await login(formData.username, formData.password);
-      if (result.success) {
-        navigate('/');
-      } else {
-        setError(result.error || 'Error al iniciar sesión');
-      }
-    } catch (error) {
-      setError(error.message || 'Error al iniciar sesión');
-    } finally {
-      setLoading(false);
-    }
   };
 
   const handlePhantomLogin = async () => {
@@ -53,14 +36,64 @@ const Login = () => {
       const encodedMessage = new TextEncoder().encode(message);
       const signedMessage = await window.solana.signMessage(encodedMessage, "utf8");
       
-      const result = await login(resp.publicKey.toString(), signedMessage.signature);
-      if (result.success) {
+      setPublicKey(resp.publicKey.toString());
+
+      // Intentar login/registro
+      const response = await fetch('http://localhost:3000/auth/phantom', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          publicKey: resp.publicKey.toString()
+        })
+      });
+
+      const data = await response.json();
+
+      if (data.needsRegistration) {
+        setShowRegistration(true);
+      } else if (data.success) {
+        await login(data.user);
         navigate('/');
       } else {
-        setError(result.error || 'Error al iniciar sesión con Phantom');
+        setError(data.message || 'Error en el proceso de autenticación');
       }
     } catch (error) {
       setError(error.message || 'Error al conectar con Phantom Wallet');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleRegistration = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+
+    try {
+      const response = await fetch('http://localhost:3000/auth/phantom', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          publicKey,
+          username: registrationData.username,
+          role: registrationData.role
+        })
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        await login(data.user);
+        navigate('/');
+      } else {
+        setError(data.message || 'Error en el registro');
+      }
+    } catch (error) {
+      setError(error.message || 'Error en el proceso de registro');
     } finally {
       setLoading(false);
     }
@@ -72,14 +105,49 @@ const Login = () => {
         <h1>Iniciar Sesión</h1>
         {error && <div className="error-message">{error}</div>}
         
-        <div className="divider"></div>
-        <button 
-          onClick={handlePhantomLogin} 
-          className="phantom-login-btn"
-          disabled={loading}
-        >
-          {loading ? 'Conectando...' : 'Iniciar Sesión con Phantom'}
-        </button>
+        {!showRegistration ? (
+          <>
+            <div className="divider"></div>
+            <button 
+              onClick={handlePhantomLogin} 
+              className="phantom-login-btn"
+              disabled={loading}
+            >
+              {loading ? 'Conectando...' : 'Iniciar Sesión con Phantom'}
+            </button>
+          </>
+        ) : (
+          <form onSubmit={handleRegistration} className="registration-form">
+            <div className="form-group">
+              <label htmlFor="username">Nombre de Usuario:</label>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                value={registrationData.username}
+                onChange={handleRegistrationChange}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="role">Rol:</label>
+              <select
+                id="role"
+                name="role"
+                value={registrationData.role}
+                onChange={handleRegistrationChange}
+                required
+              >
+                <option value="client">Cliente</option>
+                <option value="developer">Desarrollador</option>
+              </select>
+            </div>
+            <button type="submit" disabled={loading}>
+              {loading ? 'Registrando...' : 'Completar Registro'}
+            </button>
+          </form>
+        )}
+        
         <p className="register-link">
           ¿No tienes una cuenta? <Link to="https://phantom.com/">Regístrate aquí</Link>
         </p>

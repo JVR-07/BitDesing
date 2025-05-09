@@ -45,17 +45,17 @@ const Header = () => {
           {user ? (
             <div className="user-menu">
               <div className="user-info">
-                <span className="user-name">Hola, {user.name}</span>
-                {user.walletAddress && (
+                <span className="user-name">Hola, {user.username}</span>
+                {user.publicKey && (
                   <span 
                     className="wallet-address"
                     onMouseEnter={() => setShowWalletTooltip(true)}
                     onMouseLeave={() => setShowWalletTooltip(false)}
                   >
-                    {formatWalletAddress(user.walletAddress)}
+                    {formatWalletAddress(user.publicKey)}
                     {showWalletTooltip && (
                       <div className="wallet-tooltip">
-                        {user.walletAddress}
+                        {user.publicKey}
                       </div>
                     )}
                   </span>

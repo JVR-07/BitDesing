@@ -123,7 +123,7 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 exports.Prisma.Project_logsScalarFieldEnum = {
   project_log_id: 'project_log_id',
   project_id: 'project_id',
-  user_id: 'user_id',
+  public_key: 'public_key',
   action: 'action',
   wallet_address: 'wallet_address',
   timestamp: 'timestamp'
@@ -135,8 +135,8 @@ exports.Prisma.ProjectsScalarFieldEnum = {
   description: 'description',
   amount: 'amount',
   status: 'status',
-  client_id: 'client_id',
-  developer_id: 'developer_id',
+  client_public_key: 'client_public_key',
+  developer_public_key: 'developer_public_key',
   contract_address: 'contract_address',
   created_at: 'created_at'
 };
@@ -150,10 +150,9 @@ exports.Prisma.TasksScalarFieldEnum = {
 };
 
 exports.Prisma.UsersScalarFieldEnum = {
-  user_id: 'user_id',
-  wallet_adress: 'wallet_adress',
+  public_key: 'public_key',
   rol: 'rol',
-  created_at: 'created_at'
+  user_name: 'user_name'
 };
 
 exports.Prisma.SortOrder = {
