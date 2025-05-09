@@ -66,7 +66,8 @@
 .auth-section {
   display: flex;
   align-items: center;
-  gap: 2rem; /* Separación de los botones hacia la derecha */
+  gap: 2rem;
+  margin-left: 4rem; /* Aumentado de 2rem a 4rem para moverlo más a la derecha */
 }
 
 .user-menu {
@@ -118,7 +119,8 @@
 
 .auth-buttons {
   display: flex;
-  gap: 2rem; /* Separación más grande entre los botones */
+  gap: 2rem;
+  margin-left: 2rem; /* Añadido margen izquierdo para separarlo más */
 }
 
 .login-btn {
@@ -130,6 +132,7 @@
   font-weight: 500;
   text-decoration: none;
   transition: all 0.3s ease;
+  margin-left: 2rem; /* Añadido margen izquierdo adicional */
 }
 
 .login-btn:hover {
@@ -187,29 +190,22 @@
 
   .auth-section {
     flex-direction: column;
-    gap: 1rem; /* Mayor separación entre los elementos en móviles */
+    gap: 1rem;
     margin-left: 0; /* Eliminar margen en móviles */
-  }
-
-  .user-menu {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem; /* Mayor separación en los elementos del menú */
   }
 
   .auth-buttons {
     flex-direction: column;
     width: 100%;
-    gap: 1rem; /* Mayor separación entre los botones */
-    align-items: center; /* Centrar los botones en móvil */
+    gap: 1rem;
+    align-items: center;
+    margin-left: 0; /* Eliminar margen en móviles */
   }
 
-  .login-btn,
-  .register-btn,
-  .logout-btn {
+  .login-btn {
     text-align: center;
     width: 100%;
-    margin-left: 0; /* Eliminar margen en móvil */
+    margin-left: 0; /* Eliminar margen en móviles */
   }
 }
 

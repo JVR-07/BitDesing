@@ -21,7 +21,20 @@ html, body, #root {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 8rem 1rem 2rem 1rem; /* Aumentado el padding superior de 6rem a 8rem */
+  padding: 8rem 1rem 4rem 1rem; /* Aumentado el padding inferior de 2rem a 4rem */
   position: relative;
   z-index: 1;
+}
+
+/* Media queries para ajustar el espaciado en pantallas más pequeñas */
+@media (max-width: 768px) {
+  .main-content {
+    padding: 8rem 1rem 6rem 1rem; /* Aumentado el padding inferior a 6rem en pantallas medianas */
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    padding: 8rem 1rem 8rem 1rem; /* Aumentado el padding inferior a 8rem en pantallas pequeñas */
+  }
 }
