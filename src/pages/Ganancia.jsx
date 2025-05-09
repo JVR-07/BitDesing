@@ -12,6 +12,7 @@ import {
 } from 'chart.js';
 import { Connection, PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js';
 import { useAuth } from '../context/AuthContext';
+import './Ganancia.css';
 
 ChartJS.register(
   CategoryScale,
@@ -25,10 +26,13 @@ ChartJS.register(
 
 const Ganancia = () => {
   const { user } = useAuth();
-  const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [walletInfo, setWalletInfo] = useState(null);
+  const [walletData, setWalletData] = useState({
+    balance: 0,
+    address: '',
+    transactions: []
+  });
   const [chartData, setChartData] = useState(null);
 
   // Función para validar la dirección de la wallet
@@ -149,7 +153,7 @@ const Ganancia = () => {
 
         // Obtener el balance actual
         const balance = await connection.getBalance(publicKey);
-        setWalletInfo({
+        setWalletData({
           address: user.walletAddress,
           balance: balance / LAMPORTS_PER_SOL
         });
@@ -201,7 +205,10 @@ const Ganancia = () => {
           .filter(tx => tx !== null)
           .sort((a, b) => a.timestamp - b.timestamp);
 
-        setTransactions(validTransactions);
+        setWalletData({
+          ...walletData,
+          transactions: validTransactions
+        });
 
         // Preparar datos para el gráfico
         const balanceHistory = calculateBalanceHistory(validTransactions);
@@ -232,37 +239,63 @@ const Ganancia = () => {
     fetchTransactions();
   }, [user]);
 
-  // Calcular el monto total
-  const montoTotal = transactions.reduce((sum, tx) => sum + tx.amount, 0) / LAMPORTS_PER_SOL;
-
   if (loading) {
-    return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="text-center">
-          <p className="text-lg">Cargando transacciones...</p>
-        </div>
-      </div>
-    );
+    return <div className="loading-message">Cargando información de la wallet...</div>;
+  }
+
+  if (error) {
+    return <div className="error-message">{error}</div>;
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8">Ganancia</h1>
-      
-      {error && (
-        <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-8" role="alert">
-          <p className="font-bold">Aviso</p>
-          <p>{error}</p>
+    <div className="ganancia-container">
+      <div className="ganancia-header">
+        <h1>Mi Wallet</h1>
+      </div>
+
+      <div className="wallet-info">
+        <h2>Balance Actual</h2>
+        <div className="wallet-address">{walletData.address}</div>
+        <div className="wallet-balance">${walletData.balance.toFixed(2)}</div>
+      </div>
+
+      <div className="balance-summary">
+        <div className="balance-card">
+          <h3>Ingresos Totales</h3>
+          <div className="balance-value positive">
+            ${walletData.transactions
+              .filter(t => t.type === 'ingreso')
+              .reduce((sum, t) => sum + t.amount, 0)
+              .toFixed(2)}
+          </div>
         </div>
-      )}
-      
-      {walletInfo && (
-        <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
-          <h2 className="text-xl font-semibold mb-4">Información de la Wallet</h2>
-          <p className="text-sm text-gray-600 mb-2">Dirección: {walletInfo.address}</p>
-          <p className="text-lg font-semibold">Balance actual: {walletInfo?.balance?.toFixed(4) || '0.0000'} SOL</p>
+        <div className="balance-card">
+          <h3>Egresos Totales</h3>
+          <div className="balance-value negative">
+            ${Math.abs(walletData.transactions
+              .filter(t => t.type === 'egreso')
+              .reduce((sum, t) => sum + t.amount, 0))
+              .toFixed(2)}
+          </div>
         </div>
-      )}
+      </div>
+
+      <div className="transactions-list">
+        <h2>Últimas Transacciones</h2>
+        {walletData.transactions.map(transaction => (
+          <div key={transaction.signature} className="transaction-item">
+            <div className="transaction-info">
+              <div className="transaction-amount">
+                ${Math.abs(transaction.amount).toFixed(2)}
+              </div>
+              <div className="transaction-date">{transaction.timestamp.toLocaleString()}</div>
+            </div>
+            <div className={`transaction-type type-${transaction.type}`}>
+              {transaction.type === 'ingreso' ? 'Ingreso' : 'Egreso'}
+            </div>
+          </div>
+        ))}
+      </div>
 
       <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
         <div style={{ height: '400px' }}>
@@ -272,60 +305,6 @@ const Ganancia = () => {
             <div className="flex items-center justify-center h-full">
               <p className="text-gray-500">No hay datos para mostrar</p>
             </div>
-          )}
-        </div>
-      </div>
-
-      <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
-        <h2 className="text-2xl font-semibold mb-4">Balance Actual</h2>
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <p className="text-lg text-gray-600">Balance Total</p>
-            <p className={`text-3xl font-bold ${walletInfo?.balance >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-              {walletInfo?.balance?.toFixed(4) || '0.0000'} SOL
-            </p>
-          </div>
-          <div>
-            <p className="text-lg text-gray-600">Cambio en 24h</p>
-            <p className={`text-3xl font-bold ${
-              transactions.length > 0 
-                ? (transactions[transactions.length - 1].amount >= 0 ? 'text-green-600' : 'text-red-600')
-                : 'text-gray-600'
-            }`}>
-              {transactions.length > 0 
-                ? `${(transactions[transactions.length - 1].amount / LAMPORTS_PER_SOL).toFixed(4)} SOL`
-                : '0.0000 SOL'}
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div className="bg-white rounded-lg shadow-lg p-6">
-        <h2 className="text-2xl font-semibold mb-4">Últimas Transacciones</h2>
-        <div className="space-y-4">
-          {transactions.length > 0 ? (
-            transactions.map((tx) => (
-              <div key={tx.signature} className="border-b pb-4 last:border-b-0">
-                <div className="flex justify-between items-center">
-                  <div>
-                    <p className="font-semibold">
-                      {(tx.amount / LAMPORTS_PER_SOL).toFixed(4)} SOL
-                    </p>
-                    <p className="text-sm text-gray-600">
-                      {tx.timestamp.toLocaleString()}
-                    </p>
-                  </div>
-                  <span className={`font-semibold ${tx.type === 'ingreso' ? 'text-green-600' : 'text-red-600'}`}>
-                    {tx.type === 'ingreso' ? 'Ingreso' : 'Egreso'}
-                  </span>
-                </div>
-                <p className="text-sm text-gray-500 mt-1 truncate">
-                  {tx.signature}
-                </p>
-              </div>
-            ))
-          ) : (
-            <p className="text-gray-500 text-center">No hay transacciones para mostrar</p>
           )}
         </div>
       </div>

@@ -136,3 +136,68 @@ body {
     padding: 2rem;
   }
 }
+
+.role-selection {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.role-selection h2 {
+  color: var(--morado);
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+}
+
+.role-options {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.role-btn {
+  flex: 1;
+  max-width: 200px;
+  padding: 1rem;
+  border: 2px solid var(--morado);
+  border-radius: 10px;
+  background: transparent;
+  color: var(--texto);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.role-btn:hover {
+  background-color: var(--morado);
+  color: white;
+}
+
+.role-btn.selected {
+  background-color: var(--morado);
+  color: white;
+}
+
+.continue-btn {
+  background: linear-gradient(135deg, var(--morado), var(--verde));
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  max-width: 200px;
+}
+
+.continue-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(167, 139, 250, 0.4);
+}
+
+.continue-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}

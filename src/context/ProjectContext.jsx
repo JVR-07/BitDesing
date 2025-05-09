@@ -1,60 +1,87 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
-import projectsData from '../data/projects.json';
 import { useAuth } from './AuthContext';
 
 const ProjectContext = createContext(null);
 
 export const ProjectProvider = ({ children }) => {
-  const [projects, setProjects] = useState(projectsData.projects);
+  const [projects, setProjects] = useState([]);
   const { user } = useAuth();
+
+  useEffect(() => {
+    // Inicializar con algunos proyectos de ejemplo si no hay ninguno
+    if (projects.length === 0) {
+      setProjects([
+        {
+          id: 1,
+          title: 'Proyecto de Ejemplo',
+          description: 'Este es un proyecto de ejemplo',
+          amount: 10,
+          status: 'Abierto',
+          clientId: '1',
+          clientName: 'Cliente Ejemplo',
+          budget: '10 SOL',
+          duration: '1 mes',
+          skills: ['React', 'Node.js'],
+          applications: []
+        }
+      ]);
+    }
+  }, []);
 
   const createProject = (projectData) => {
     const newProject = {
-      id: projects.length + 1,
+      id: Date.now(),
       ...projectData,
-      clientId: user.id,
-      clientName: user.name,
+      clientId: user?.id,
+      clientName: user?.name,
       status: 'Abierto',
-      applications: []
+      applications: [],
+      created_at: new Date().toISOString()
     };
-    setProjects([...projects, newProject]);
+    
+    setProjects(prevProjects => [...prevProjects, newProject]);
+    return newProject;
   };
 
   const applyToProject = (projectId, message) => {
-    setProjects(projects.map(project => {
-      if (project.id === projectId) {
-        return {
-          ...project,
-          applications: [
-            ...project.applications,
-            {
-              developerId: user.id,
-              developerName: user.name,
-              status: 'Pendiente',
-              message
-            }
-          ]
-        };
-      }
-      return project;
-    }));
+    setProjects(prevProjects => 
+      prevProjects.map(project => {
+        if (project.id === projectId) {
+          return {
+            ...project,
+            applications: [
+              ...project.applications,
+              {
+                developerId: user?.id,
+                developerName: user?.name,
+                status: 'Pendiente',
+                message
+              }
+            ]
+          };
+        }
+        return project;
+      })
+    );
   };
 
   const assignDeveloper = (projectId, developerId) => {
-    setProjects(projects.map(project => {
-      if (project.id === projectId) {
-        const developer = project.applications.find(app => app.developerId === developerId);
-        return {
-          ...project,
-          status: 'En Progreso',
-          assignedDeveloper: {
-            id: developer.developerId,
-            name: developer.developerName
-          }
-        };
-      }
-      return project;
-    }));
+    setProjects(prevProjects => 
+      prevProjects.map(project => {
+        if (project.id === projectId) {
+          const developer = project.applications.find(app => app.developerId === developerId);
+          return {
+            ...project,
+            status: 'En Progreso',
+            assignedDeveloper: {
+              id: developer.developerId,
+              name: developer.developerName
+            }
+          };
+        }
+        return project;
+      })
+    );
   };
 
   const getClientProjects = () => {
