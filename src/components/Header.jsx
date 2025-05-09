@@ -34,14 +34,22 @@ const Header = () => {
           <button className="mobile-menu-btn" onClick={toggleMenu}>
             {isMenuOpen ? '✕' : '☰'}
           </button>
-
-          <nav className={`nav ${isMenuOpen ? 'active' : ''}`}>
-            <Link to="/" className="nav-link" onClick={() => setIsMenuOpen(false)}>Inicio</Link>
-            <Link to="/developers" className="nav-link" onClick={() => setIsMenuOpen(false)}>Desarrolladores</Link>
-            <Link to="/projects" className="nav-link" onClick={() => setIsMenuOpen(false)}>Proyectos</Link>
-            <Link to="/contact" className="nav-link" onClick={() => setIsMenuOpen(false)}>Contacto</Link>
-          </nav>
-
+        <nav className={`nav ${isMenuOpen ? 'active' : ''}`}>
+          <Link to="/" className="nav-link" onClick={() => setIsMenuOpen(false)}>Inicio</Link>
+          <Link to="/developers" className="nav-link" onClick={() => setIsMenuOpen(false)}>Desarrolladores</Link>
+          <Link to="/projects" className="nav-link" onClick={() => setIsMenuOpen(false)}>Proyectos</Link>
+          <Link to="/contact" className="nav-link" onClick={() => setIsMenuOpen(false)}>Contacto</Link>
+          {user && user.role === 'developer' && (
+            <Link to="/ganancia" className="nav-link" onClick={() => setIsMenuOpen(false)}>
+              Ganancia
+            </Link>
+          )}
+          {user && user.role === 'client' && (
+            <Link to="/pagos" className="nav-link" onClick={() => setIsMenuOpen(false)}>
+              Pagos
+            </Link>
+          )}
+        </nav>
           <div className="auth-section">
             {user ? (
               <div className="user-menu">
