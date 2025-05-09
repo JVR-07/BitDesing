@@ -7,6 +7,8 @@ import Register from './pages/Register';
 import Developers from './pages/Developers';
 import Projects from './pages/Projects';
 import Contact from './pages/Contact';
+import Ganancia from './pages/Ganancia';
+import Pagos from './pages/Pagos';
 import Footer from './components/Footer';
 import { AuthProvider } from './context/AuthContext';
 import { ProjectProvider } from './context/ProjectContext';
@@ -40,6 +42,22 @@ const AppRoutes = () => {
       <Route path="/developers" element={<Developers />} />
       <Route path="/projects" element={<Projects />} />
       <Route path="/contact" element={<Contact />} />
+      <Route 
+        path="/ganancia" 
+        element={
+          <ProtectedRoute roles={['developer']}>
+            <Ganancia />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/pagos" 
+        element={
+          <ProtectedRoute roles={['client']}>
+            <Pagos />
+          </ProtectedRoute>
+        } 
+      />
     </Routes>
   );
 };
