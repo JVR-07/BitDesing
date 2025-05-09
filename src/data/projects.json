@@ -2,22 +2,17 @@
   "projects": [
     {
       "id": 1,
-      "title": "Desarrollo de E-commerce",
-      "description": "Plataforma de comercio electrónico con integración de pagos y gestión de inventario.",
-      "budget": "$5,000 - $10,000",
-      "duration": "3 meses",
-      "skills": ["React", "Node.js", "MongoDB"],
+      "title": "Proyecto de Ejemplo",
+      "description": "Este es un proyecto de ejemplo",
+      "amount": 10,
       "status": "Abierto",
-      "clientId": 1,
-      "clientName": "Juan Pérez",
-      "applications": [
-        {
-          "developerId": 2,
-          "developerName": "Ana García",
-          "status": "Pendiente",
-          "message": "Me interesa participar en este proyecto. Tengo experiencia en e-commerce."
-        }
-      ]
+      "clientId": "1",
+      "clientName": "Cliente Ejemplo",
+      "budget": "10 SOL",
+      "duration": "1 mes",
+      "skills": ["React", "Node.js"],
+      "applications": [],
+      "created_at": "2024-03-09T12:00:00Z"
     },
     {
       "id": 2,

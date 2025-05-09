@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import usersData from '../data/users.json';
 
-const AuthContext = createContext();
+const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -120,6 +121,42 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const connectWallet = async () => {
+    try {
+      if (!window.solana || !window.solana.isPhantom) {
+        alert('Por favor instala Phantom Wallet');
+        return;
+      }
+
+      const response = await window.solana.connect();
+      const walletAddress = response.publicKey.toString();
+      const foundUser = usersData.users.find(u => u.walletAddress === walletAddress);
+
+      if (foundUser) {
+        setUser(foundUser);
+        return foundUser;
+      } else {
+        alert('Wallet no registrada');
+        await window.solana.disconnect();
+        return null;
+      }
+    } catch (error) {
+      console.error('Error al conectar wallet:', error);
+      return null;
+    }
+  };
+
+  const disconnectWallet = async () => {
+    try {
+      if (window.solana) {
+        await window.solana.disconnect();
+      }
+      setUser(null);
+    } catch (error) {
+      console.error('Error al desconectar wallet:', error);
+    }
+  };
+
   return (
     <AuthContext.Provider value={{
       user,
@@ -127,7 +164,9 @@ export const AuthProvider = ({ children }) => {
       login,
       logout,
       register,
-      updateUserAvailability
+      updateUserAvailability,
+      connectWallet,
+      disconnectWallet
     }}>
       {children}
     </AuthContext.Provider>
@@ -137,7 +176,7 @@ export const AuthProvider = ({ children }) => {
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error('useAuth debe ser usado dentro de un AuthProvider');
+    throw new Error('useAuth must be used within an AuthProvider');
   }
   return context;
 }; 

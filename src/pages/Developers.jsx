@@ -9,7 +9,15 @@ const Developers = () => {
   const [showContactForm, setShowContactForm] = useState(false);
   const [contactMessage, setContactMessage] = useState('');
 
-  const developers = usersData.users.filter(user => user.role === 'developer');
+  const developers = usersData.users.filter(user => user.role === 'developer').map(dev => ({
+    ...dev,
+    availability: dev.availability || 'Disponible',
+    experience: dev.experience || '0 años',
+    hourlyRate: dev.hourlyRate || '$0',
+    completedProjects: dev.completedProjects || 0,
+    rating: dev.rating || 0,
+    skills: dev.skills || []
+  }));
 
   const handleAvailabilityChange = (availability) => {
     updateUserAvailability(availability);
@@ -36,7 +44,7 @@ const Developers = () => {
           <div className="availability-control">
             <span>Estado de disponibilidad:</span>
             <select
-              value={user.availability}
+              value={user.availability || 'Disponible'}
               onChange={(e) => handleAvailabilityChange(e.target.value)}
               className="availability-select"
             >

@@ -1,41 +1,16 @@
 {
   "users": [
     {
-      "id": 1,
-      "username": "cliente1",
-      "password": "cliente123",
-      "email": "cliente1@example.com",
-      "role": "client",
-      "name": "Juan Pérez",
-      "company": "Tech Solutions"
+      "id": "1",
+      "name": "Cliente Ejemplo",
+      "walletAddress": "example_wallet_address",
+      "role": "client"
     },
     {
-      "id": 2,
-      "username": "dev1",
-      "password": "dev123",
-      "email": "dev1@example.com",
-      "role": "developer",
-      "name": "Ana García",
-      "skills": ["React", "Node.js", "MongoDB", "AWS"],
-      "experience": "5 años",
-      "rating": 4.8,
-      "completedProjects": 25,
-      "hourlyRate": "$45/hora",
-      "availability": "Disponible"
-    },
-    {
-      "id": 3,
-      "username": "dev2",
-      "password": "dev123",
-      "email": "dev2@example.com",
-      "role": "developer",
-      "name": "Carlos Rodríguez",
-      "skills": ["Vue.js", "JavaScript", "CSS", "UI/UX"],
-      "experience": "3 años",
-      "rating": 4.6,
-      "completedProjects": 18,
-      "hourlyRate": "$35/hora",
-      "availability": "Ocupado"
+      "id": "2",
+      "name": "Desarrollador Ejemplo",
+      "walletAddress": "example_dev_wallet",
+      "role": "developer"
     }
   ]
 } 
