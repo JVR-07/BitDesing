@@ -13,6 +13,7 @@ import Footer from './components/Footer';
 import { AuthProvider } from './context/AuthContext';
 import { ProjectProvider } from './context/ProjectContext';
 import { useAuth } from './context/AuthContext';
+import "./App.css";
 
 // Componente para rutas protegidas
 const ProtectedRoute = ({ children, roles }) => {
@@ -67,9 +68,9 @@ const App = () => {
     <Router>
       <AuthProvider>
         <ProjectProvider>
-          <div className="app">
+          <div className="app-container">
             <Header />
-            <main>
+            <main className="main-content">
               <AppRoutes />
             </main>
             <Footer />
@@ -80,4 +81,4 @@ const App = () => {
   );
 };
 
-export default App; 
+export default App;
