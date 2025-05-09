@@ -8,6 +8,7 @@ import Projects from './pages/Projects';
 import Contact from './pages/Contact';
 import Ganancia from './pages/Ganancia';
 import Pagos from './pages/Pagos';
+import Wallets from './pages/Wallets';
 import Footer from './components/Footer';
 import { AuthProvider } from './context/AuthContext';
 import { ProjectProvider } from './context/ProjectContext';
@@ -54,6 +55,14 @@ const AppRoutes = () => {
         element={
           <ProtectedRoute roles={['client']}>
             <Pagos />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/wallets" 
+        element={
+          <ProtectedRoute roles={['client', 'developer']}>
+            <Wallets />
           </ProtectedRoute>
         } 
       />
