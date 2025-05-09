@@ -257,3 +257,12 @@
   border-style: solid;
   border-color: #333 transparent transparent transparent;
 } 
+
+.main-content {
+  padding-top: 80px; /* Ajusta si tu header es más alto o bajo */
+}
+
+/* Definición explícita de altura del header */
+.header {
+  height: 80px;
+}
