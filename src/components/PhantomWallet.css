@@ -1,0 +1,39 @@
+.phantom-wallet-container {
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.connect-wallet-btn,
+.disconnect-wallet-btn {
+  background-color: #512da8;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.connect-wallet-btn:hover,
+.disconnect-wallet-btn:hover {
+  background-color: #311b92;
+}
+
+.wallet-info {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+}
+
+.wallet-address {
+  word-break: break-all;
+  font-family: monospace;
+  background-color: #e0e0e0;
+  padding: 10px;
+  border-radius: 4px;
+  margin: 10px 0;
+} 
