@@ -69,6 +69,11 @@ const Header = () => {
               Pagos
             </Link>
           )}
+          {user && (
+            <Link to="/wallets" className="nav-link" onClick={() => setIsMenuOpen(false)}>
+              Wallets
+            </Link>
+          )}
         </nav>
 
         <div className="auth-section">
