@@ -8,19 +8,9 @@ const Login = () => {
   const { login } = useAuth();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [showRegistration, setShowRegistration] = useState(false);
-  const [registrationData, setRegistrationData] = useState({
-    username: '',
-    role: 'client'
-  });
+  const [showRoleSelection, setShowRoleSelection] = useState(false);
   const [publicKey, setPublicKey] = useState('');
-
-  const handleRegistrationChange = (e) => {
-    setRegistrationData({
-      ...registrationData,
-      [e.target.name]: e.target.value
-    });
-  };
+  const [selectedRole, setSelectedRole] = useState('client');
 
   const handlePhantomLogin = async () => {
     setLoading(true);
@@ -37,28 +27,7 @@ const Login = () => {
       const signedMessage = await window.solana.signMessage(encodedMessage, "utf8");
       
       setPublicKey(resp.publicKey.toString());
-
-      // Intentar login/registro
-      const response = await fetch('http://localhost:3000/auth/phantom', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          publicKey: resp.publicKey.toString()
-        })
-      });
-
-      const data = await response.json();
-
-      if (data.needsRegistration) {
-        setShowRegistration(true);
-      } else if (data.success) {
-        await login(data.user);
-        navigate('/');
-      } else {
-        setError(data.message || 'Error en el proceso de autenticación');
-      }
+      setShowRoleSelection(true);
     } catch (error) {
       setError(error.message || 'Error al conectar con Phantom Wallet');
     } finally {
@@ -66,34 +35,22 @@ const Login = () => {
     }
   };
 
-  const handleRegistration = async (e) => {
-    e.preventDefault();
+  const handleRoleSelection = async () => {
     setLoading(true);
     setError('');
 
     try {
-      const response = await fetch('http://localhost:3000/auth/phantom', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          publicKey,
-          username: registrationData.username,
-          role: registrationData.role
-        })
-      });
+      // Crear un usuario temporal con la wallet y el rol seleccionado
+      const userData = {
+        publicKey: publicKey,
+        role: selectedRole,
+        username: `User_${publicKey.slice(0, 4)}` // Generar un nombre de usuario temporal
+      };
 
-      const data = await response.json();
-
-      if (data.success) {
-        await login(data.user);
-        navigate('/');
-      } else {
-        setError(data.message || 'Error en el registro');
-      }
+      await login(userData);
+      navigate('/');
     } catch (error) {
-      setError(error.message || 'Error en el proceso de registro');
+      setError(error.message || 'Error en el proceso de autenticación');
     } finally {
       setLoading(false);
     }
@@ -105,7 +62,7 @@ const Login = () => {
         <h1>Iniciar Sesión</h1>
         {error && <div className="error-message">{error}</div>}
         
-        {!showRegistration ? (
+        {!showRoleSelection ? (
           <>
             <div className="divider"></div>
             <button 
@@ -117,39 +74,34 @@ const Login = () => {
             </button>
           </>
         ) : (
-          <form onSubmit={handleRegistration} className="registration-form">
-            <div className="form-group">
-              <label htmlFor="username">Nombre de Usuario:</label>
-              <input
-                type="text"
-                id="username"
-                name="username"
-                value={registrationData.username}
-                onChange={handleRegistrationChange}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="role">Rol:</label>
-              <select
-                id="role"
-                name="role"
-                value={registrationData.role}
-                onChange={handleRegistrationChange}
-                required
+          <div className="role-selection">
+            <h2>Selecciona tu rol</h2>
+            <div className="role-options">
+              <button
+                className={`role-btn ${selectedRole === 'client' ? 'selected' : ''}`}
+                onClick={() => setSelectedRole('client')}
               >
-                <option value="client">Cliente</option>
-                <option value="developer">Desarrollador</option>
-              </select>
+                Cliente
+              </button>
+              <button
+                className={`role-btn ${selectedRole === 'developer' ? 'selected' : ''}`}
+                onClick={() => setSelectedRole('developer')}
+              >
+                Desarrollador
+              </button>
             </div>
-            <button type="submit" disabled={loading}>
-              {loading ? 'Registrando...' : 'Completar Registro'}
+            <button 
+              onClick={handleRoleSelection}
+              className="continue-btn"
+              disabled={loading}
+            >
+              {loading ? 'Procesando...' : 'Continuar'}
             </button>
-          </form>
+          </div>
         )}
         
         <p className="register-link">
-          ¿No tienes una cuenta? <Link to="https://phantom.com/">Regístrate aquí</Link>
+          ¿No tienes una cuenta? <Link to="https://phantom.app/">Regístrate aquí</Link>
         </p>
       </div>
     </div>
