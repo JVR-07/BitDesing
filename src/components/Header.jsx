@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import './Header.css';
@@ -8,6 +8,26 @@ const Header = () => {
   const { user, logout } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showWalletTooltip, setShowWalletTooltip] = useState(false);
+  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      // Solo mostrar el header cuando estamos en la parte superior
+      if (currentScrollY <= 0) {
+        setIsHeaderVisible(true);
+      } else {
+        setIsHeaderVisible(false);
+      }
+      
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY]);
 
   const handleLogout = () => {
     logout();
@@ -24,16 +44,16 @@ const Header = () => {
   };
 
   return (
-    <>
-      <header className="header">
-        <div className="header-content">
-          <Link to="/" className="logo">
-            PlataformaDevs
-          </Link>
-          
-          <button className="mobile-menu-btn" onClick={toggleMenu}>
-            {isMenuOpen ? '✕' : '☰'}
-          </button>
+    <header className={`header ${!isHeaderVisible ? 'hidden' : ''}`}>
+      <div className="header-content">
+        <Link to="/" className="logo">
+          PlataformaDevs
+        </Link>
+        
+        <button className="mobile-menu-btn" onClick={toggleMenu}>
+          {isMenuOpen ? '✕' : '☰'}
+        </button>
+
         <nav className={`nav ${isMenuOpen ? 'active' : ''}`}>
           <Link to="/" className="nav-link" onClick={() => setIsMenuOpen(false)}>Inicio</Link>
           <Link to="/developers" className="nav-link" onClick={() => setIsMenuOpen(false)}>Desarrolladores</Link>
@@ -50,6 +70,7 @@ const Header = () => {
             </Link>
           )}
         </nav>
+
         <div className="auth-section">
           {user ? (
             <div className="user-menu">
@@ -67,33 +88,26 @@ const Header = () => {
                         {user.publicKey}
                       </div>
                     )}
-                    </span>
-                  )}
-                </div>
-                {user.role === 'developer' && user.availability && (
-                  <span className={`availability-badge ${user.availability.toLowerCase()}`}>
-                    {user.availability}
                   </span>
                 )}
-                <button onClick={handleLogout} className="logout-btn">
-                  Cerrar Sesión
-                </button>
               </div>
-            ) : (
-              <div className="auth-buttons">
-                <Link to="/login" className="login-btn" onClick={() => setIsMenuOpen(false)}>Iniciar Sesión</Link>
-                <Link to="/register" className="register-btn" onClick={() => setIsMenuOpen(false)}>Registrarse</Link>
-              </div>
-            )}
-          </div>
+              {user.role === 'developer' && user.availability && (
+                <span className={`availability-badge ${user.availability.toLowerCase()}`}>
+                  {user.availability}
+                </span>
+              )}
+              <button onClick={handleLogout} className="logout-btn">
+                Cerrar Sesión
+              </button>
+            </div>
+          ) : (
+            <div className="auth-buttons">
+              <Link to="/login" className="login-btn" onClick={() => setIsMenuOpen(false)}>Iniciar Sesión</Link>
+            </div>
+          )}
         </div>
-      </header>
-
-      {/* Aquí comienza el contenido principal del sitio */}
-      <div className="main-content">
-        {/* Tu contenido principal iría aquí si quieres incluirlo desde este mismo componente */}
       </div>
-    </>
+    </header>
   );
 };
 

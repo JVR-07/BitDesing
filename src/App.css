@@ -6,10 +6,11 @@ html, body, #root {
 }
 
 /* Estructura vertical de la app */
-.app-wrapper {
+.app-container {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  position: relative;
 }
 
 /* Ocupa el espacio disponible entre header y footer */
@@ -17,4 +18,23 @@ html, body, #root {
   flex: 1;
   display: flex;
   flex-direction: column;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 8rem 1rem 4rem 1rem; /* Aumentado el padding inferior de 2rem a 4rem */
+  position: relative;
+  z-index: 1;
+}
+
+/* Media queries para ajustar el espaciado en pantallas más pequeñas */
+@media (max-width: 768px) {
+  .main-content {
+    padding: 8rem 1rem 6rem 1rem; /* Aumentado el padding inferior a 6rem en pantallas medianas */
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    padding: 8rem 1rem 8rem 1rem; /* Aumentado el padding inferior a 8rem en pantallas pequeñas */
+  }
 }
