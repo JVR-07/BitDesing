@@ -11,4 +11,4 @@
 | Blockchain  |  | Javier |
 | Autenticación |  | Ian / Javier |
 | Base de Datos | PostgreSQL (Render Free Tier)                   | Paul |
-| Hosting     | Raspberry        | Cesar |
+| Hosting     | Raspberry pi 4       | Cesar |
