@@ -50,23 +50,23 @@ const Header = () => {
             </Link>
           )}
         </nav>
-          <div className="auth-section">
-            {user ? (
-              <div className="user-menu">
-                <div className="user-info">
-                  <span className="user-name">Hola, {user.name}</span>
-                  {user.walletAddress && (
-                    <span 
-                      className="wallet-address"
-                      onMouseEnter={() => setShowWalletTooltip(true)}
-                      onMouseLeave={() => setShowWalletTooltip(false)}
-                    >
-                      {formatWalletAddress(user.walletAddress)}
-                      {showWalletTooltip && (
-                        <div className="wallet-tooltip">
-                          {user.walletAddress}
-                        </div>
-                      )}
+        <div className="auth-section">
+          {user ? (
+            <div className="user-menu">
+              <div className="user-info">
+                <span className="user-name">Hola, {user.username}</span>
+                {user.publicKey && (
+                  <span 
+                    className="wallet-address"
+                    onMouseEnter={() => setShowWalletTooltip(true)}
+                    onMouseLeave={() => setShowWalletTooltip(false)}
+                  >
+                    {formatWalletAddress(user.publicKey)}
+                    {showWalletTooltip && (
+                      <div className="wallet-tooltip">
+                        {user.publicKey}
+                      </div>
+                    )}
                     </span>
                   )}
                 </div>

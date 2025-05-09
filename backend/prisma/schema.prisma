@@ -1,0 +1,56 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model project_logs {
+  project_log_id Int       @id @default(autoincrement())
+  project_id     Int?
+  public_key     String?   @db.VarChar(100)
+  action         String
+  wallet_address String?   @db.VarChar(42)
+  timestamp      DateTime? @default(now()) @db.Timestamp(6)
+  projects       projects? @relation(fields: [project_id], references: [project_id], onDelete: Cascade, onUpdate: NoAction)
+  users          users?    @relation(fields: [public_key], references: [public_key], onDelete: Cascade, onUpdate: NoAction)
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model projects {
+  project_id                         Int            @id @default(autoincrement())
+  title                              String
+  description                        String?
+  amount                             Decimal        @db.Decimal(18, 6)
+  status                             String?        @default("created") @db.VarChar(20)
+  client_public_key                  String?        @db.VarChar(100)
+  developer_public_key               String?        @db.VarChar(100)
+  contract_address                   String?        @db.VarChar(66)
+  created_at                         DateTime?      @default(now()) @db.Timestamp(6)
+  project_logs                       project_logs[]
+  users_projects_client_idTousers    users?         @relation("projects_client_idTousers", fields: [client_public_key], references: [public_key], onDelete: Cascade, onUpdate: NoAction)
+  users_projects_developer_idTousers users?         @relation("projects_developer_idTousers", fields: [developer_public_key], references: [public_key], onUpdate: NoAction)
+  tasks                              tasks[]
+}
+
+model tasks {
+  task_id             Int       @id @default(autoincrement())
+  project_id          Int?
+  description         String
+  completed_by_dev    Boolean?  @default(false)
+  confirmed_by_client Boolean?  @default(false)
+  projects            projects? @relation(fields: [project_id], references: [project_id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model users {
+  public_key                          String         @id @db.VarChar(100)
+  rol                                 String         @db.VarChar(100)
+  user_name                           String         @db.VarChar(100)
+  project_logs                        project_logs[]
+  projects_projects_client_idTousers    projects[]     @relation("projects_client_idTousers")
+  projects_projects_developer_idTousers projects[]     @relation("projects_developer_idTousers")
+}
