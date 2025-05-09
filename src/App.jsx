@@ -7,10 +7,13 @@ import Register from './pages/Register';
 import Developers from './pages/Developers';
 import Projects from './pages/Projects';
 import Contact from './pages/Contact';
+import Ganancia from './pages/Ganancia';
+import Pagos from './pages/Pagos';
 import Footer from './components/Footer';
 import { AuthProvider } from './context/AuthContext';
 import { ProjectProvider } from './context/ProjectContext';
 import { useAuth } from './context/AuthContext';
+import "./App.css";
 
 // Componente para rutas protegidas
 const ProtectedRoute = ({ children, roles }) => {
@@ -40,6 +43,22 @@ const AppRoutes = () => {
       <Route path="/developers" element={<Developers />} />
       <Route path="/projects" element={<Projects />} />
       <Route path="/contact" element={<Contact />} />
+      <Route 
+        path="/ganancia" 
+        element={
+          <ProtectedRoute roles={['developer']}>
+            <Ganancia />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/pagos" 
+        element={
+          <ProtectedRoute roles={['client']}>
+            <Pagos />
+          </ProtectedRoute>
+        } 
+      />
     </Routes>
   );
 };
@@ -49,9 +68,9 @@ const App = () => {
     <Router>
       <AuthProvider>
         <ProjectProvider>
-          <div className="app">
+          <div className="app-container">
             <Header />
-            <main>
+            <main className="main-content">
               <AppRoutes />
             </main>
             <Footer />
@@ -62,4 +81,4 @@ const App = () => {
   );
 };
 
-export default App; 
+export default App;

@@ -1,150 +1,165 @@
+:root {
+  --color-bg-header: #1a1a1a;
+  --color-primary: #e6f4ea;
+  --color-accent: #0056b3;
+  --color-text: #ffffff;
+  --color-button-hover: #ffffff;
+}
+
 .header {
-  background-color: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: var(--color-bg-header);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
+  height: 80px;
 }
 
 .header-content {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 1rem 2rem;
+  padding: 0.75rem 1.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .logo {
-  font-size: 1.5rem;
+  font-size: 1.5rem; /* Aumento el tamaño para mejor visibilidad */
   font-weight: 700;
-  color: #007bff;
+  color: var(--color-primary);
   text-decoration: none;
   transition: color 0.3s ease;
+  margin-right: 2rem; /* Añadimos margen para que no esté tan cerca de los botones */
 }
 
 .logo:hover {
-  color: #0056b3;
+  color: var(--color-button-hover);
 }
 
 .nav {
   display: flex;
-  gap: 2rem;
+  gap: 2rem; /* Aumentamos el espacio entre los elementos de navegación */
   align-items: center;
 }
 
 .nav-link {
-  color: #333;
+  color: var(--color-text);
+  font-size: 1rem; /* Aumento el tamaño de la fuente */
   text-decoration: none;
   font-weight: 500;
   transition: color 0.3s ease;
 }
 
 .nav-link:hover {
-  color: #007bff;
+  color: var(--color-primary);
 }
 
 .auth-section {
   display: flex;
   align-items: center;
+  gap: 2rem; /* Separación de los botones hacia la derecha */
 }
 
 .user-menu {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1rem; /* Añadimos más espacio entre el nombre de usuario y el badge */
 }
 
 .user-name {
   font-weight: 500;
-  color: #333;
+  color: var(--color-text);
+  font-size: 1rem; /* Aumento el tamaño de la fuente */
 }
 
 .availability-badge {
-  padding: 0.25rem 0.75rem;
+  padding: 0.25rem 0.6rem;
   border-radius: 20px;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   font-weight: 500;
 }
 
 .availability-badge.disponible {
-  background-color: #e6f4ea;
-  color: #1e7e34;
+  background-color: #2e8b5733;
+  color: #7cfc00;
 }
 
 .availability-badge.ocupado {
-  background-color: #f8d7da;
-  color: #721c24;
+  background-color: #ff4d4d33;
+  color: #ff4d4d;
 }
 
 .logout-btn {
   background-color: transparent;
-  color: #dc3545;
-  border: 1px solid #dc3545;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  padding: 0.6rem 1rem; /* Aumento el padding para mayor comodidad */
+  border-radius: 6px;
+  font-size: 0.95rem; /* Aumento el tamaño del texto */
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
+  margin-left: 2rem; /* Separación más grande hacia la derecha */
 }
 
 .logout-btn:hover {
-  background-color: #dc3545;
-  color: white;
+  background-color: var(--color-primary);
+  color: var(--color-bg-header);
 }
 
 .auth-buttons {
   display: flex;
-  gap: 1rem;
+  gap: 2rem; /* Separación más grande entre los botones */
 }
 
 .login-btn,
 .register-btn {
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
+  padding: 0.6rem 1.1rem; /* Aumento el padding para mayor confort */
+  border-radius: 6px;
+  font-size: 0.95rem; /* Aumento el tamaño de la fuente */
   font-weight: 500;
   text-decoration: none;
   transition: all 0.3s ease;
 }
 
 .login-btn {
-  color: #007bff;
-  border: 1px solid #007bff;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
 }
 
 .login-btn:hover {
-  background-color: #007bff;
-  color: white;
+  background-color: var(--color-primary);
+  color: var(--color-bg-header);
 }
 
 .register-btn {
-  background-color: #007bff;
-  color: white;
-  border: 1px solid #007bff;
+  background-color: var(--color-primary);
+  color: var(--color-bg-header);
+  border: 1px solid var(--color-primary);
 }
 
 .register-btn:hover {
-  background-color: #0056b3;
-  border-color: #0056b3;
+  background-color: var(--color-button-hover);
+  color: var(--color-bg-header);
+  border-color: var(--color-button-hover);
 }
 
-/* Mobile menu button */
 .mobile-menu-btn {
   display: none;
   background: none;
   border: none;
   font-size: 1.5rem;
-  color: #333;
+  color: var(--color-text);
   cursor: pointer;
   padding: 0.5rem;
 }
 
-/* Responsive styles */
 @media (max-width: 768px) {
   .header-content {
-    padding: 1rem;
+    padding: 0.75rem 1rem;
   }
 
   .mobile-menu-btn {
@@ -157,11 +172,11 @@
     top: 100%;
     left: 0;
     right: 0;
-    background-color: white;
+    background-color: var(--color-bg-header);
     padding: 1rem;
     flex-direction: column;
-    gap: 1rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    gap: 1.5rem; /* Mayor separación entre los elementos */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
   }
 
   .nav.active {
@@ -170,43 +185,39 @@
 
   .auth-section {
     flex-direction: column;
-    gap: 1rem;
+    gap: 1rem; /* Mayor separación entre los elementos en móviles */
+    margin-left: 0; /* Eliminar margen en móviles */
   }
 
   .user-menu {
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.5rem;
+    gap: 1rem; /* Mayor separación en los elementos del menú */
   }
 
   .auth-buttons {
     flex-direction: column;
     width: 100%;
+    gap: 1rem; /* Mayor separación entre los botones */
+    align-items: center; /* Centrar los botones en móvil */
   }
 
   .login-btn,
-  .register-btn {
+  .register-btn,
+  .logout-btn {
     text-align: center;
     width: 100%;
-  }
-
-  .logout-btn {
-    width: 100%;
+    margin-left: 0; /* Eliminar margen en móvil */
   }
 }
 
-/* Small mobile devices */
 @media (max-width: 480px) {
-  .header-content {
-    padding: 0.75rem;
-  }
-
   .logo {
-    font-size: 1.25rem;
+    font-size: 1.25rem; /* Ajuste para pantallas pequeñas */
   }
 
   .user-name {
-    font-size: 0.875rem;
+    font-size: 0.85rem; /* Ajuste para pantallas pequeñas */
   }
 
   .availability-badge {
@@ -218,14 +229,14 @@
 .user-info {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 0.5rem; /* Espaciado entre los elementos de la información del usuario */
 }
 
 .wallet-address {
   font-size: 0.75rem;
-  color: #666;
-  background-color: #f5f5f5;
-  padding: 0.25rem 0.5rem;
+  color: #ccc;
+  background-color: #2a2a2a;
+  padding: 0.35rem 0.6rem; /* Ajuste en el padding */
   border-radius: 4px;
   cursor: pointer;
   position: relative;
@@ -237,14 +248,14 @@
   bottom: 100%;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #333;
+  background-color: #444;
   color: white;
-  padding: 0.5rem;
+  padding: 0.6rem;
   border-radius: 4px;
-  font-size: 0.75rem;
+  font-size: 0.85rem;
   white-space: nowrap;
   z-index: 1000;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.6rem;
 }
 
 .wallet-tooltip::after {
@@ -255,5 +266,9 @@
   transform: translateX(-50%);
   border-width: 5px;
   border-style: solid;
-  border-color: #333 transparent transparent transparent;
-} 
+  border-color: #444 transparent transparent transparent;
+}
+
+.main-content {
+  padding-top: 80px;
+}
