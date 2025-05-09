@@ -4,11 +4,11 @@
 - Stack del proyecto
 
 ### Stack del proyecto
-| Capa        | Tecnología                                       |
-|-------------|--------------------------------------------------|
-| Frontend    | React + Vite + TailwindCSS                       |
-| Backend     | Node.js + Express.js                             |
-| Blockchain  |  |
-| Autenticación |          |
-| Base de Datos | PostgreSQL (Render Free Tier)                   |
-| Hosting     | Raspberry        |
+| Capa        | Tecnología                                       |  Responsable |
+|-------------|--------------------------------------------------|-----------------------|
+| Frontend    | React + Vite + TailwindCSS                       | Dulce / Javier |
+| Backend     | Node.js + Express.js + Primsa ORM                      | Paul / Ian / Cesar / Javier |
+| Blockchain  |  | Javier |
+| Autenticación |  | Ian / Javier |
+| Base de Datos | PostgreSQL (Render Free Tier)                   | Paul |
+| Hosting     | Raspberry        | Cesar |
