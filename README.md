@@ -1,4 +1,7 @@
+> ⚠ This was a hackathon project developed in twnety fourth hours and it's incomplete. We can't development the backend, but the front it's working.
 # BitDesing
+
+[Demo del proyecto](https://bit-desing.vercel.app/)
 
 ## Indice
 - Stack del proyecto
