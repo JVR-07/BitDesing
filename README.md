@@ -17,11 +17,4 @@
 | Hosting     | Raspberry pi 4       | Cesar |
 
 
-## Diagrama de Base de Datos (PostgreSQL)
-```SQL
-SELECT
-```
-
-## Deploy in RPI
-
 
